@@ -65,7 +65,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         });
 
         addField('_captcha', 'false');
-        addField('_next', 'https://yourdomain.com/thank-you');
+        // addField('_next', 'https://yourdomain.com/thank-you');
 
         document.body.appendChild(form);
         form.submit();
