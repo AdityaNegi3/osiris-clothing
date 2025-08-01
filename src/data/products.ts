@@ -78,7 +78,7 @@ export const products: Product[] = [
   {
     id: 'dark-3',
     name: 'Dark Edition Noir Tee',
-    price: 999,
+    price: 2999,
     category: 'dark',
     frontImage: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
     backImage: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
