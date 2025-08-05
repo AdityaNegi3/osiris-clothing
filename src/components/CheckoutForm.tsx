@@ -35,7 +35,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }
 
     const options = {
-      key: 'rzp_test_1234567890', // Replace with your Razorpay Key ID
+      key: 'rzp_live_iZZc7jaS5vFcbq', // Replace with your Razorpay Key ID
       amount: totalAmount * 100,
       currency: 'INR',
       name: 'Osiris',
