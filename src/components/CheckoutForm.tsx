@@ -35,13 +35,12 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }
 
     const options = {
-      key: 'rzp_live_iZZc7jaS5vFcbq', // Replace with your Razorpay Key ID
+      key: 'rzp_live_iZZc7jaS5vFcbq', // ✅ Your live Razorpay Key ID
       amount: totalAmount * 100,
       currency: 'INR',
       name: 'Osiris',
       description: 'Luxury Clothing Purchase',
       handler: async function (response: any) {
-        // On success, send data to FormSubmit
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = 'https://formsubmit.co/osirisvip.life@gmail.com';
@@ -65,7 +64,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         });
 
         addField('_captcha', 'false');
-        // addField('_next', 'https://yourdomain.com/thank-you');
+        addField('_next', 'https://osirisclothing.site/thank-you'); // ✅ Redirect to thank you
 
         document.body.appendChild(form);
         form.submit();
