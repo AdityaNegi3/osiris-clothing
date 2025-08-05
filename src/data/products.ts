@@ -5,7 +5,7 @@ export const products: Product[] = [
   {
     id: 'limited-1',
     name: 'FERRARI x HAMILTON ',
-    price: 1499,
+    price: 10,
     category: 'limited',
     frontImage: '/FERRARI FRONT.png',
     backImage: '/HAMILTON BACK.png',
