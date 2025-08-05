@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
+import ThankYou from './pages/ThankYou'; // ✅ Import ThankYou page
 
 // Pages for F1 and Dark editions
 const F1Edition = () => (
@@ -47,6 +48,7 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/collections/f1" element={<F1Edition />} />
               <Route path="/collections/dark" element={<DarkEdition />} />
+              <Route path="/thank-you" element={<ThankYou />} /> {/* ✅ New Route */}
             </Routes>
           </main>
           <Footer />
