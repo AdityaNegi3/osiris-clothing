@@ -17,7 +17,18 @@ const DarkEdition = () => (
   <div className="p-8 text-center text-xl">Dark Edition Collection</div>
 );
 
-// Handles smooth scrolling to hash targets
+// 🔁 Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
+// Handles smooth scrolling to hash targets (optional)
 function ScrollToHashElement() {
   const { hash } = useLocation();
 
@@ -38,6 +49,7 @@ function App() {
     <CartProvider>
       <Router>
         <div className="min-h-screen bg-black text-white">
+          <ScrollToTop /> {/* 🔁 Always scroll to top on new page */}
           <ScrollToHashElement />
           <Header />
           <main>
@@ -48,7 +60,7 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/collections/f1" element={<F1Edition />} />
               <Route path="/collections/dark" element={<DarkEdition />} />
-              <Route path="/thank-you" element={<ThankYou />} /> {/* ✅ New Route */}
+              <Route path="/thank-you" element={<ThankYou />} />
             </Routes>
           </main>
           <Footer />
