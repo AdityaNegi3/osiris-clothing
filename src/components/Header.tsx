@@ -28,7 +28,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10 transition-all duration-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
         {/* Line 1: Logo Centered */}
@@ -56,8 +56,8 @@ const Header: React.FC = () => {
             >
               <button className="text-white hover:text-yellow-400 font-medium">Collections</button>
               {dropdownOpen && (
-                <div className="absolute mt-2 w-48 bg-black border border-white/10 rounded shadow-lg z-50">
-                  <a href="/#f1-edition" className="block px-4 py-2 hover:bg-gray-800 text-white text-sm">F1 Edition</a>
+                <div className="absolute mt-2 w-48 bg-black bg-opacity-90 border border-white/10 rounded shadow-lg z-50">
+                  <a href="/#f1-edition" className="block px-4 py-2 hover:bg-gray-800 text-white text-sm">Chronical Edition</a>
                   <a href="/#dark-edition" className="block px-4 py-2 hover:bg-gray-800 text-white text-sm">Dark Edition</a>
                   <button
                     onClick={handleSignatureClick}
@@ -108,7 +108,7 @@ const Header: React.FC = () => {
           <div className="md:hidden mt-2 bg-black/95 backdrop-blur-md border-b border-white/10 rounded-b-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link to="/" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Home</Link>
-              <a href="/#f1-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">F1 Edition</a>
+              <a href="/#f1-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Chronical Edtion</a>
               <a href="/#dark-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Dark Edition</a>
               <button
                 onClick={() => {
