@@ -4,16 +4,16 @@ export const products: Product[] = [
   // LIMITED Edition Collection
   {
     id: 'limited-1',
-    name: 'FERRARI x HAMILTON ',
+    name: 'PINK FLOYD ',
     price: 1,
     category: 'limited',
-    frontImage: '/FERRARI FRONT.png',
+    frontImage: '/1front.png',
     backImage: '/1.png',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
   },
   {
     id: 'limited-2',
-    name: 'MERCEDES x RUSSEL ',
+    name: 'GUNS & ROSES ',
     price: 1499,
     category: 'limited',
     frontImage: '/Merc front.png',
@@ -22,19 +22,19 @@ export const products: Product[] = [
   },
   {
     id: 'limited-3',
-    name: 'MCLAREN x NORRIS ',
+    name: 'EYES',
     price: 1499,
     category: 'limited',
-    frontImage: '/mclaren front.png',
+    frontImage: '/eyes.png',
     backImage: '/3.png',
     description: 'Royal edition with sophisticated design elements and luxury finishing.'
   },
   {
     id: 'limited-4',
-    name: 'REDBULL x VERSTAPPEN ',
+    name: 'KING BOB ',
     price: 1499,
     category: 'limited',
-    frontImage: '/redbull front.png',
+    frontImage: '/4 front.png',
     backImage: '/4.png',
     description: 'Heritage collection piece with timeless design and premium craftsmanship.'
   },

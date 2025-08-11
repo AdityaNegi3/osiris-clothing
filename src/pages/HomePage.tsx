@@ -41,11 +41,11 @@ const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
-              F1 EDITION
+              Chaos Edition
             </h2>
             <div className="h-px w-32 bg-yellow-400 mx-auto mb-6"></div>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              Exclusive pieces for the discerning individual. Limited quantities, unlimited sophistication.
+              No rules. No repeats. Just pure chaos.
             </p>
           </div>
 
