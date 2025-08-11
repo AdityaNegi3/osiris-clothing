@@ -52,7 +52,7 @@ export const products: Product[] = [
     name: 'OSIRIS',
     price: 1499,
     category: 'limited',
-    frontImage: '/5.png',
+    frontImage: '/6.png',
     backImage: '/back.png',
     description: 'Elite collection featuring sophisticated aesthetics and premium comfort.'
   },
