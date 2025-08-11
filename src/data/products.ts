@@ -44,7 +44,7 @@ export const products: Product[] = [
     price: 1499,
     category: 'limited',
     frontImage: '/5.png',
-    backImage: '/5back.png',
+    backImage: '/5 back.png',
     description: 'Luxury edition with exclusive design elements and superior material quality.'
   },
   {
