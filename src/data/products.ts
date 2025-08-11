@@ -13,7 +13,7 @@ export const products: Product[] = [
   },
   {
     id: 'limited-2',
-    name: 'GUNS & ROSES ',
+    name: 'GUNS & ROSES',
     price: 1499,
     category: 'limited',
     frontImage: '/Merc front.png',
