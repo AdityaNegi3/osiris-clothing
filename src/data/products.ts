@@ -16,7 +16,7 @@ export const products: Product[] = [
     name: 'GUNS & ROSES',
     price: 1499,
     category: 'limited',
-    frontImage: '/Merc front.png',
+    frontImage: '/2front.png',
     backImage: '/2.png',
     description: 'LIMITED collection featuring elegant gold script typography on premium fabric.'
   },
@@ -26,12 +26,12 @@ export const products: Product[] = [
     price: 1499,
     category: 'limited',
     frontImage: '/eyes.png',
-    backImage: '/3.png',
+    backImage: '/back.png',
     description: 'Royal edition with sophisticated design elements and luxury finishing.'
   },
   {
     id: 'limited-4',
-    name: 'KING BOB ',
+    name: 'LINKIN PARK',
     price: 1499,
     category: 'limited',
     frontImage: '/4 front.png',
@@ -40,20 +40,20 @@ export const products: Product[] = [
   },
   {
     id: 'limited-5',
-    name: 'ASTON MARTIN x FERNANDO',
+    name: 'GREEN DAY',
     price: 1499,
     category: 'limited',
-    frontImage: '/AM front.png',
-    backImage: '/5(2).png',
+    frontImage: '/5.png',
+    backImage: '/5back.png',
     description: 'Luxury edition with exclusive design elements and superior material quality.'
   },
   {
     id: 'limited-6',
-    name: 'MERCEDES x HAMILTON',
+    name: 'OSIRIS',
     price: 1499,
     category: 'limited',
-    frontImage: '/Merc front.png',
-    backImage: '/6.png',
+    frontImage: '/5.png',
+    backImage: '/back.png',
     description: 'Elite collection featuring sophisticated aesthetics and premium comfort.'
   },
   // Dark Edition Collection
