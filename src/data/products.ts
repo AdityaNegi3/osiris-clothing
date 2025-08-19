@@ -4,56 +4,56 @@ export const products: Product[] = [
   // LIMITED Edition Collection
   {
     id: 'limited-1',
-    name: 'PINK FLOYD ',
+    name: 'LINKIN PARK ',
     price: 1,
     category: 'limited',
-    frontImage: '/1front.png',
-    backImage: '/1.png',
+    frontImage: '/linkin park front.png',
+    backImage: '/linkin park back.png',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
   },
   {
     id: 'limited-2',
-    name: 'GUNS & ROSES',
+    name: 'THE BEATLES',
     price: 1499,
     category: 'limited',
-    frontImage: '/2front.png',
-    backImage: '/2.png',
+    frontImage: '/the beatles front.png',
+    backImage: '/the beatles back.png',
     description: 'LIMITED collection featuring elegant gold script typography on premium fabric.'
   },
   {
     id: 'limited-3',
-    name: 'EYES',
+    name: 'BLACK SABBATH',
     price: 1499,
     category: 'limited',
-    frontImage: '/eyes.png',
-    backImage: '/back.png',
+    frontImage: '/black sabbath front.png',
+    backImage: '/black sabbath back.png',
     description: 'Royal edition with sophisticated design elements and luxury finishing.'
   },
   {
     id: 'limited-4',
-    name: 'LINKIN PARK',
+    name: 'PINK FLOYD',
     price: 1499,
     category: 'limited',
-    frontImage: '/4 front.png',
-    backImage: '/4.png',
+    frontImage: '/pink floyd front.png',
+    backImage: '/pink floyd back.png',
     description: 'Heritage collection piece with timeless design and premium craftsmanship.'
   },
   {
     id: 'limited-5',
-    name: 'GREEN DAY',
+    name: 'METALLICA',
     price: 1499,
     category: 'limited',
-    frontImage: '/5.png',
-    backImage: '/5 back.png',
+    frontImage: '/metallica front.png',
+    backImage: '/metallica back.png',
     description: 'Luxury edition with exclusive design elements and superior material quality.'
   },
   {
     id: 'limited-6',
-    name: 'OSIRIS',
+    name: 'ALL BANDS',
     price: 1499,
     category: 'limited',
-    frontImage: '/6.png',
-    backImage: '/back.png',
+    frontImage: '/osiris front.png',
+    backImage: '/all in one back.png',
     description: 'Elite collection featuring sophisticated aesthetics and premium comfort.'
   },
 
