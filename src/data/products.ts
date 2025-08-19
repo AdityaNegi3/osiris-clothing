@@ -6,7 +6,7 @@ export const products: Product[] = [
     id: 'limited-1',
     name: 'LINKIN PARK ',
     price: 1,
-    category: 'dark',
+    category: 'limited',
     frontImage: '/linkin park front.png',
     backImage: '/linkin park back.png',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
