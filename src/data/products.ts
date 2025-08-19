@@ -60,11 +60,11 @@ export const products: Product[] = [
   // Dark Edition Collection
   {
     id: 'dark-1',
-    name: 'Dark Edition Shadow Tee',
-    price: 999,
+    name: 'OSIRIS MENTALITY ',
+    price: 1,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/osiris middle front.png',
+    backImage: '/osiris mentality front.png',
     description: 'Dark edition with shadow aesthetics and mysterious elegance.'
   },
   {
