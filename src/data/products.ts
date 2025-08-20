@@ -69,20 +69,20 @@ export const products: Product[] = [
   },
   {
     id: 'dark-2',
-    name: 'Dark Edition Midnight Tee',
+    name: 'FRAGILE',
     price: 999,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/fragile front.png',
+    backImage: '/fragile back.png',
     description: 'Midnight collection with deep black tones and subtle design details.'
   },
   {
     id: 'dark-3',
-    name: 'Dark Edition Noir Tee',
+    name: 'EYES',
     price: 999,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/eyes front.png',
+    backImage: '/back.png',
     description: 'Noir edition featuring sophisticated dark aesthetics and premium quality.'
   },
   {
