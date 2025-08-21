@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* F1 Edition */}
+      {/* Chaos (Limited) Edition */}
       <section
         id="f1-edition"
         className="py-20 relative bg-black bg-cover bg-center bg-no-repeat"
@@ -57,10 +57,17 @@ const HomePage: React.FC = () => {
                 className="group bg-gray-900/50 rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
               >
                 <div className="aspect-w-3 aspect-h-4 relative overflow-hidden">
+                  {/* Front */}
                   <img
                     src={product.frontImage}
                     alt={product.name}
-                    className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
+                  />
+                  {/* Back */}
+                  <img
+                    src={product.backImage}
+                    alt={`${product.name} back`}
+                    className="w-full h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
                 </div>
@@ -81,56 +88,63 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Dark Edition */}
-     <section
-  id="dark-edition"
-  className="py-20 relative bg-cover bg-center"
-  style={{backgroundImage:"url('/dark-bg.png')",}}
->
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
+      <section
+        id="dark-edition"
+        className="py-20 relative bg-cover bg-center"
+        style={{ backgroundImage: "url('/dark-bg.png')" }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
 
-  {/* Content */}
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
-        DARK EDITION
-      </h2>
-      <div className="h-px w-32 bg-yellow-400 mx-auto mb-6"></div>
-      <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-        Embrace the shadows. Where mystery meets elegance in perfect harmony.
-      </p>
-    </div>
+        {/* Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
+              DARK EDITION
+            </h2>
+            <div className="h-px w-32 bg-yellow-400 mx-auto mb-6"></div>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Embrace the shadows. Where mystery meets elegance in perfect harmony.
+            </p>
+          </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {darkProducts.map((product) => (
-        <Link
-          key={product.id}
-          to={`/product/${product.id}`}
-          className="group bg-gray-900/50 rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
-        >
-          <div className="aspect-w-3 aspect-h-4 relative overflow-hidden">
-            <img
-              src={product.frontImage}
-              alt={product.name}
-              className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {darkProducts.map((product) => (
+              <Link
+                key={product.id}
+                to={`/product/${product.id}`}
+                className="group bg-gray-900/50 rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
+              >
+                <div className="aspect-w-3 aspect-h-4 relative overflow-hidden">
+                  {/* Front */}
+                  <img
+                    src={product.frontImage}
+                    alt={product.name}
+                    className="w-full h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
+                  />
+                  {/* Back */}
+                  <img
+                    src={product.backImage}
+                    alt={`${product.name} back`}
+                    className="w-full h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                    {product.name}
+                  </h3>
+                  <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
+                  <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
+                    <span className="text-sm">View Details</span>
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-          <div className="p-6">
-            <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
-              {product.name}
-            </h3>
-            <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
-            <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
-              <span className="text-sm">View Details</span>
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-            </div>
-          </div>
-        </Link>
-      ))}
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* Signature Edition Modal Trigger */}
       <div className="text-center py-10">
