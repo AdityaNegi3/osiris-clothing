@@ -49,7 +49,8 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Grid updated: 2 on mobile, 3 on tablets, 4 on desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {limitedProducts.map((product) => (
               <Link
                 key={product.id}
@@ -108,7 +109,8 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Grid updated: 2 on mobile, 3 on tablets, 4 on desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {darkProducts.map((product) => (
               <Link
                 key={product.id}
