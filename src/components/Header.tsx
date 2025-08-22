@@ -1,29 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingBag, Menu, X, User } from "lucide-react";
-import { useCart } from "../context/CartContext";
-import { getAuth, onAuthStateChanged, signOut, User as FirebaseUser } from "firebase/auth";
-import { app } from "../main";
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { ShoppingBag, Menu, X } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
-const auth = getAuth(app);
-
-interface HeaderProps {
-  onAuthOpen?: () => void; // 👈 Pass function from App to open Auth modal
-}
-
-const Header: React.FC<HeaderProps> = ({ onAuthOpen }) => {
+const Header: React.FC = () => {
   const { getTotalItems } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
-  const [user, setUser] = useState<FirebaseUser | null>(null);
   const totalItems = getTotalItems();
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u));
-    return () => unsubscribe();
-  }, []);
 
   const handleSignatureClick = () => {
     setShowComingSoon(true);
@@ -41,10 +27,6 @@ const Header: React.FC<HeaderProps> = ({ onAuthOpen }) => {
     }, 200);
   };
 
-  const handleLogout = async () => {
-    await signOut(auth);
-  };
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10 transition-all duration-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -59,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthOpen }) => {
           </Link>
         </div>
 
-        {/* Line 2: Navigation centered, cart + auth on right */}
+        {/* Line 2: Navigation centered, cart on right */}
         <div className="hidden md:flex items-center justify-between mt-4 relative">
           <div className="w-1/3" />
 
@@ -90,8 +72,8 @@ const Header: React.FC<HeaderProps> = ({ onAuthOpen }) => {
             <Link to="/about" className="text-white hover:text-yellow-400 font-medium">About</Link>
           </div>
 
-          {/* Cart + Auth on the right */}
-          <div className="w-1/3 flex justify-end items-center space-x-4">
+          {/* Cart on the right */}
+          <div className="w-1/3 flex justify-end">
             <Link to="/cart" className="relative text-white hover:text-yellow-400">
               <ShoppingBag className="w-6 h-6" />
               {totalItems > 0 && (
@@ -100,50 +82,19 @@ const Header: React.FC<HeaderProps> = ({ onAuthOpen }) => {
                 </span>
               )}
             </Link>
-
-            {user ? (
-              <button
-                onClick={handleLogout}
-                className="text-white hover:text-yellow-400 font-medium flex items-center space-x-1"
-              >
-                <User className="w-5 h-5" />
-                <span>Logout</span>
-              </button>
-            ) : (
-              <button
-                onClick={onAuthOpen}
-                className="text-white hover:text-yellow-400 font-medium flex items-center space-x-1"
-              >
-                <User className="w-5 h-5" />
-                <span>Login</span>
-              </button>
-            )}
           </div>
         </div>
 
-        {/* Mobile: Cart + Auth + Menu */}
+        {/* Mobile: Cart + Menu */}
         <div className="md:hidden flex justify-between items-center mt-4">
-          <div className="flex items-center space-x-4">
-            <Link to="/cart" className="relative text-white hover:text-yellow-400">
-              <ShoppingBag className="w-6 h-6" />
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                  {totalItems}
-                </span>
-              )}
-            </Link>
-
-            {user ? (
-              <button onClick={handleLogout} className="text-white hover:text-yellow-400">
-                <User className="w-6 h-6" />
-              </button>
-            ) : (
-              <button onClick={onAuthOpen} className="text-white hover:text-yellow-400">
-                <User className="w-6 h-6" />
-              </button>
+          <Link to="/cart" className="relative text-white hover:text-yellow-400">
+            <ShoppingBag className="w-6 h-6" />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                {totalItems}
+              </span>
             )}
-          </div>
-
+          </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-white hover:text-yellow-400"
@@ -157,7 +108,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthOpen }) => {
           <div className="md:hidden mt-2 bg-black/95 backdrop-blur-md border-b border-white/10 rounded-b-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link to="/" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Home</Link>
-              <a href="/#f1-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Chaos Edition</a>
+              <a href="/#f1-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">ChaosEdtion</a>
               <a href="/#dark-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Dark Edition</a>
               <button
                 onClick={() => {
