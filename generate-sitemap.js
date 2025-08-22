@@ -10,14 +10,13 @@ const links = [
 
 async function generateSitemap() {
   const stream = new SitemapStream({ hostname: 'https://osirisclothing.site' });
-  const writeStream = createWriteStream('./dist/sitemap.xml');
+  const writeStream = createWriteStream('./public/sitemap.xml'); // <- public folder
   stream.pipe(writeStream);
 
   links.forEach(link => stream.write(link));
   stream.end();
 
   await streamToPromise(stream);
-  console.log('✅ Sitemap generated at dist/sitemap.xml');
+  console.log('✅ Sitemap generated at public/sitemap.xml');
 }
-
 generateSitemap();
