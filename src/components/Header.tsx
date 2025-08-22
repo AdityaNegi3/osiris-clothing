@@ -44,9 +44,22 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
           </Link>
         </div>
 
-        {/* Line 2: Navigation centered, cart + sign in on right */}
+        {/* Line 2: Navigation centered, cart on left, sign in on right */}
         <div className="hidden md:flex items-center justify-between mt-4 relative">
-          <div className="w-1/3" />
+          {/* Left: Cart */}
+          <div className="w-1/3 flex items-center">
+            <Link
+              to="/cart"
+              className="relative text-white hover:text-yellow-400"
+            >
+              <ShoppingBag className="w-6 h-6" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+          </div>
 
           {/* Centered Navigation */}
           <div className="flex justify-center space-x-8 w-1/3 absolute left-1/2 transform -translate-x-1/2">
@@ -94,31 +107,18 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
             </Link>
           </div>
 
-          {/* Right side: Cart + Sign In */}
-          <div className="w-1/3 flex justify-end items-center space-x-4">
-            {/* ✅ Sign In Button */}
+          {/* Right: Sign In */}
+          <div className="w-1/3 flex justify-end items-center">
             <button
               onClick={onSignInClick}
               className="px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition"
             >
               Sign In
             </button>
-
-            <Link
-              to="/cart"
-              className="relative text-white hover:text-yellow-400"
-            >
-              <ShoppingBag className="w-6 h-6" />
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                  {totalItems}
-                </span>
-              )}
-            </Link>
           </div>
         </div>
 
-        {/* Mobile: Cart + Menu */}
+        {/* Mobile: Cart (left) + Menu (right) */}
         <div className="md:hidden flex justify-between items-center mt-4">
           <Link to="/cart" className="relative text-white hover:text-yellow-400">
             <ShoppingBag className="w-6 h-6" />
