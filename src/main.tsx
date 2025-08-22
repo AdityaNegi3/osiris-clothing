@@ -1,31 +1,29 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+// src/main.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { ClerkProvider } from "@clerk/clerk-react";
 
-// ✅ Import Firebase SDK
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// Read Clerk key from .env (Vite)
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string;
 
-// ✅ Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCLExk02mdglKh-T6usW9VtDoU1taT-IdM",
-  authDomain: "osiris-clothing.firebaseapp.com",
-  projectId: "osiris-clothing",
-  storageBucket: "osiris-clothing.firebasestorage.app",
-  messagingSenderId: "448747370903",
-  appId: "1:448747370903:web:a57b21f4bcb29898c4acd2",
-  measurementId: "G-WTKRKM6YR4"
-};
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing VITE_CLERK_PUBLISHABLE_KEY in .env");
+}
 
-// ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      appearance={{
+        variables: {
+          // tweak to your brand
+          colorPrimary: "#8b5cf6",
+        },
+      }}
+    >
+      <App />
+    </ClerkProvider>
+  </React.StrictMode>
 );
-
-export { app, analytics };

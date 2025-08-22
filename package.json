@@ -11,6 +11,7 @@
     "sitemap": "node generate-sitemap.js"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.43.1",
     "@stripe/react-stripe-js": "^3.8.1",
     "@stripe/stripe-js": "^7.7.0",
     "@types/react-router-dom": "^5.3.3",

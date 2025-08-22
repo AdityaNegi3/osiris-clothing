@@ -1,19 +1,30 @@
+// src/components/Header.tsx
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from "@clerk/clerk-react";
 
 interface HeaderProps {
-  onSignInClick?: () => void; // ✅ new prop
+  onSignInClick?: () => void; // kept for backward compatibility (not required with Clerk)
 }
 
 const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
   const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
-  const totalItems = getTotalItems();
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const { user } = useUser();
 
   const handleSignatureClick = () => {
     setShowComingSoon(true);
@@ -26,9 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
   };
 
   const handleMouseLeave = () => {
-    closeTimeoutRef.current = setTimeout(() => {
-      setDropdownOpen(false);
-    }, 200);
+    closeTimeoutRef.current = setTimeout(() => setDropdownOpen(false), 200);
   };
 
   return (
@@ -44,14 +53,11 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
           </Link>
         </div>
 
-        {/* Line 2: Navigation centered, cart on left, sign in on right */}
+        {/* Line 2: Navigation centered, cart on left, auth on right */}
         <div className="hidden md:flex items-center justify-between mt-4 relative">
           {/* Left: Cart */}
           <div className="w-1/3 flex items-center">
-            <Link
-              to="/cart"
-              className="relative text-white hover:text-yellow-400"
-            >
+            <Link to="/cart" className="relative text-white hover:text-yellow-400">
               <ShoppingBag className="w-6 h-6" />
               {totalItems > 0 && (
                 <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
@@ -99,22 +105,40 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
               )}
             </div>
 
-            <Link
-              to="/about"
-              className="text-white hover:text-yellow-400 font-medium"
-            >
+            <Link to="/about" className="text-white hover:text-yellow-400 font-medium">
               About
             </Link>
           </div>
 
-          {/* Right: Sign In */}
-          <div className="w-1/3 flex justify-end items-center">
-            <button
-              onClick={onSignInClick}
-              className="px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition"
-            >
-              Sign In
-            </button>
+          {/* Right: Auth (Clerk) */}
+          <div className="w-1/3 flex justify-end items-center gap-3">
+            <SignedIn>
+              {user?.firstName && (
+                <span className="hidden lg:inline text-white/70">
+                  Hi, {user.firstName}
+                </span>
+              )}
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+
+            <SignedOut>
+              {/* Modal sign-in (Google + Email, as configured in Clerk) */}
+              <SignInButton mode="modal">
+                <button className="px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition">
+                  Sign In
+                </button>
+              </SignInButton>
+
+              {/* If Clerk isn’t loaded for some reason, fallback to old handler */}
+              {!window?.Clerk && onSignInClick && (
+                <button
+                  onClick={onSignInClick}
+                  className="px-3 py-1 rounded-md border border-white/20 text-white/80 hover:bg-white/10 transition"
+                >
+                  Sign In
+                </button>
+              )}
+            </SignedOut>
           </div>
         </div>
 
@@ -178,16 +202,24 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
                 About
               </Link>
 
-              {/* ✅ Mobile Sign In */}
-              <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  onSignInClick?.();
-                }}
-                className="block w-full text-left px-3 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black rounded-md"
-              >
-                Sign In
-              </button>
+              {/* ✅ Mobile Auth (Clerk modal) */}
+              <SignedIn>
+                <div className="px-3 py-2 text-white/70 flex items-center justify-between">
+                  <span>{user?.firstName ? `Hi, ${user.firstName}` : "Account"}</span>
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </SignedIn>
+
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block w-full text-left px-3 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black rounded-md"
+                  >
+                    Sign In
+                  </button>
+                </SignInButton>
+              </SignedOut>
             </div>
           </div>
         )}
@@ -196,10 +228,7 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
         {showComingSoon && (
           <div className="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow-lg z-50">
             Coming Soon!
-            <button
-              onClick={() => setShowComingSoon(false)}
-              className="ml-4 font-bold"
-            >
+            <button onClick={() => setShowComingSoon(false)} className="ml-4 font-bold">
               ✕
             </button>
           </div>
