@@ -1,29 +1,27 @@
 // src/main.tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import App from "./App";
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
 
-// Read Clerk key from .env (Vite)
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string;
+const KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing VITE_CLERK_PUBLISHABLE_KEY in .env");
-}
+const Root: React.FC = () => {
+  if (!KEY) {
+    // Don't crash production if the key isn't injected.
+    console.warn("⚠️ Missing VITE_CLERK_PUBLISHABLE_KEY. Rendering without Clerk.");
+    return <App />;
+  }
+  return (
+    <ClerkProvider publishableKey={KEY}>
+      <App />
+    </ClerkProvider>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ClerkProvider
-      publishableKey={PUBLISHABLE_KEY}
-      appearance={{
-        variables: {
-          // tweak to your brand
-          colorPrimary: "#8b5cf6",
-        },
-      }}
-    >
-      <App />
-    </ClerkProvider>
+    <Root />
   </React.StrictMode>
 );
