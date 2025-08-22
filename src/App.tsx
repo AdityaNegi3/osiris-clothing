@@ -1,13 +1,19 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { CartProvider } from './context/CartContext';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
-import AboutPage from './pages/AboutPage';
-import ThankYou from './pages/ThankYou'; // ✅ Import ThankYou page
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
+import AboutPage from "./pages/AboutPage";
+import ThankYou from "./pages/ThankYou";
+
+// ✅ Import Firebase Firestore
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { app } from "./main"; // 👈 use initialized firebase app
+
+const db = getFirestore(app); // ✅ Firestore instance
 
 // Pages for F1 and Dark editions
 const F1Edition = () => (
@@ -36,7 +42,7 @@ function ScrollToHashElement() {
     if (hash) {
       const element = document.querySelector(hash);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   }, [hash]);
@@ -44,12 +50,22 @@ function ScrollToHashElement() {
   return null;
 }
 
+// ✅ Example function to save order to Firestore
+async function saveOrderToFirestore(orderData: any) {
+  try {
+    const docRef = await addDoc(collection(db, "orders"), orderData);
+    console.log("✅ Order stored with ID: ", docRef.id);
+  } catch (e) {
+    console.error("❌ Error adding order: ", e);
+  }
+}
+
 function App() {
   return (
     <CartProvider>
       <Router>
         <div className="min-h-screen bg-black text-white">
-          <ScrollToTop /> {/* 🔁 Always scroll to top on new page */}
+          <ScrollToTop />
           <ScrollToHashElement />
           <Header />
           <main>
@@ -71,3 +87,4 @@ function App() {
 }
 
 export default App;
+export { saveOrderToFirestore }; // ✅ export to use in checkout

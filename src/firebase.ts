@@ -1,13 +1,7 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
-
-// ✅ Import Firebase SDK
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-// ✅ Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCLExk02mdglKh-T6usW9VtDoU1taT-IdM",
   authDomain: "osiris-clothing.firebaseapp.com",
@@ -18,14 +12,9 @@ const firebaseConfig = {
   measurementId: "G-WTKRKM6YR4"
 };
 
-// ✅ Initialize Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
-
-export { app, analytics };
+export { db, analytics };
