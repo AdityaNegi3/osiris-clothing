@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]          # deploy whenever you push to main
+    branches: [ "main" ]          # deploy on push to main
   workflow_dispatch:               # allow manual runs
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 👇 Write .env so Vite sees your Clerk key at build time
+      # Make .env so Vite sees your Clerk key during build
       - name: Create .env for Vite
         run: |
           cat > .env << 'EOF'
@@ -40,9 +40,13 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # 👇 SPA refresh fix for GitHub Pages
+      # SPA refresh fix for GitHub Pages
       - name: Add 404 fallback
         run: cp dist/index.html dist/404.html
+
+      # Ensure custom domain stays mapped
+      - name: Add CNAME for custom domain
+        run: echo "osirisclothing.site" > dist/CNAME
 
       - name: Upload production-ready build files
         uses: actions/upload-pages-artifact@v3
