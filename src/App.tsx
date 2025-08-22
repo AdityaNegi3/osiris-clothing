@@ -1,226 +1,188 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import { CartProvider } from "./context/CartContext";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
-import CartPage from "./pages/CartPage";
-import AboutPage from "./pages/AboutPage";
-import ThankYou from "./pages/ThankYou";
+import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ShoppingBag, Menu, X, User } from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { getAuth, onAuthStateChanged, signOut, User as FirebaseUser } from "firebase/auth";
+import { app } from "../main";
 
-// ✅ Firebase imports
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { app } from "./main"; // initialized firebase
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  User
-} from "firebase/auth";
-
-const db = getFirestore(app);
 const auth = getAuth(app);
 
-// ✅ Firestore example function
-async function saveOrderToFirestore(orderData: any) {
-  try {
-    const docRef = await addDoc(collection(db, "orders"), orderData);
-    console.log("✅ Order stored with ID: ", docRef.id);
-  } catch (e) {
-    console.error("❌ Error adding order: ", e);
-  }
+interface HeaderProps {
+  onAuthOpen?: () => void; // 👈 Pass function from App to open Auth modal
 }
 
-// 🔁 Scroll to top
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-}
-
-// 🔁 Smooth scroll to hash
-function ScrollToHashElement() {
-  const { hash } = useLocation();
-  useEffect(() => {
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-  }, [hash]);
-  return null;
-}
-
-/* ===========================
-   🔥 Auth Modal Component
-=========================== */
-function AuthModal({
-  show,
-  onClose,
-  user
-}: {
-  show: boolean;
-  onClose: () => void;
-  user: User | null;
-}) {
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  const handleAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    try {
-      if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-      }
-      onClose();
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    onClose();
-  };
-
-  if (!show) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className="bg-neutral-900 rounded-2xl shadow-lg w-full max-w-md p-8 relative text-white">
-        {/* Close Button */}
-        <button
-          className="absolute top-3 right-3 text-gray-400 hover:text-white"
-          onClick={onClose}
-        >
-          ✕
-        </button>
-
-        {user ? (
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">Welcome, {user.email}</h2>
-            <button
-              onClick={handleLogout}
-              className="w-full bg-red-600 hover:bg-red-700 transition p-3 rounded-xl font-semibold"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <>
-            <h2 className="text-2xl font-bold mb-6 text-center">
-              {isLogin ? "Login" : "Sign Up"}
-            </h2>
-            <form onSubmit={handleAuth} className="space-y-4">
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full p-3 rounded-xl bg-neutral-800 text-white outline-none"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full p-3 rounded-xl bg-neutral-800 text-white outline-none"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              {error && (
-                <p className="text-red-500 text-sm text-center">{error}</p>
-              )}
-              <button
-                type="submit"
-                className="w-full bg-white text-black font-semibold p-3 rounded-xl hover:bg-gray-200 transition"
-              >
-                {isLogin ? "Login" : "Sign Up"}
-              </button>
-            </form>
-            <p className="text-center mt-4 text-gray-400">
-              {isLogin ? "New here?" : "Already have an account?"}{" "}
-              <button
-                onClick={() => setIsLogin(!isLogin)}
-                className="text-white underline"
-              >
-                {isLogin ? "Sign Up" : "Login"}
-              </button>
-            </p>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* ===========================
-   🔥 Main App Component
-=========================== */
-function App() {
-  const [showAuth, setShowAuth] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+const Header: React.FC<HeaderProps> = ({ onAuthOpen }) => {
+  const { getTotalItems } = useCart();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
+  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const totalItems = getTotalItems();
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u));
     return () => unsubscribe();
   }, []);
 
-  return (
-    <CartProvider>
-      <Router>
-        <div className="min-h-screen bg-black text-white">
-          <ScrollToTop />
-          <ScrollToHashElement />
-          <Header />
+  const handleSignatureClick = () => {
+    setShowComingSoon(true);
+    setTimeout(() => setShowComingSoon(false), 3000);
+  };
 
-          {/* Auth Button (Top Right Corner) */}
-          <div className="absolute top-5 right-5">
-            <button
-              onClick={() => setShowAuth(true)}
-              className="bg-white text-black px-4 py-2 rounded-xl font-semibold hover:bg-gray-200 transition"
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setDropdownOpen(false);
+    }, 200);
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10 transition-all duration-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+
+        {/* Line 1: Logo Centered */}
+        <div className="flex justify-center">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300"
+          >
+            OSIRIS
+          </Link>
+        </div>
+
+        {/* Line 2: Navigation centered, cart + auth on right */}
+        <div className="hidden md:flex items-center justify-between mt-4 relative">
+          <div className="w-1/3" />
+
+          {/* Centered Navigation */}
+          <div className="flex justify-center space-x-8 w-1/3 absolute left-1/2 transform -translate-x-1/2">
+            <Link to="/" className="text-white hover:text-yellow-400 font-medium">Home</Link>
+
+            <div
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
-              {user ? "Account" : "Login / Sign Up"}
-            </button>
+              <button className="text-white hover:text-yellow-400 font-medium">Collections</button>
+              {dropdownOpen && (
+                <div className="absolute mt-2 w-48 bg-black bg-opacity-90 border border-white/10 rounded shadow-lg z-50">
+                  <a href="/#f1-edition" className="block px-4 py-2 hover:bg-gray-800 text-white text-sm">Chaos Edition</a>
+                  <a href="/#dark-edition" className="block px-4 py-2 hover:bg-gray-800 text-white text-sm">Dark Edition</a>
+                  <button
+                    onClick={handleSignatureClick}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-800 text-white text-sm"
+                  >
+                    Signature Edition
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <Link to="/about" className="text-white hover:text-yellow-400 font-medium">About</Link>
           </div>
 
-          <main>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route
-                path="/collections/f1"
-                element={<div className="p-8 text-center text-xl">F1 Edition Collection</div>}
-              />
-              <Route
-                path="/collections/dark"
-                element={<div className="p-8 text-center text-xl">Dark Edition Collection</div>}
-              />
-              <Route path="/thank-you" element={<ThankYou />} />
-            </Routes>
-          </main>
-          <Footer />
+          {/* Cart + Auth on the right */}
+          <div className="w-1/3 flex justify-end items-center space-x-4">
+            <Link to="/cart" className="relative text-white hover:text-yellow-400">
+              <ShoppingBag className="w-6 h-6" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
 
-          {/* Auth Popup */}
-          <AuthModal show={showAuth} onClose={() => setShowAuth(false)} user={user} />
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="text-white hover:text-yellow-400 font-medium flex items-center space-x-1"
+              >
+                <User className="w-5 h-5" />
+                <span>Logout</span>
+              </button>
+            ) : (
+              <button
+                onClick={onAuthOpen}
+                className="text-white hover:text-yellow-400 font-medium flex items-center space-x-1"
+              >
+                <User className="w-5 h-5" />
+                <span>Login</span>
+              </button>
+            )}
+          </div>
         </div>
-      </Router>
-    </CartProvider>
-  );
-}
 
-export default App;
-export { saveOrderToFirestore };
+        {/* Mobile: Cart + Auth + Menu */}
+        <div className="md:hidden flex justify-between items-center mt-4">
+          <div className="flex items-center space-x-4">
+            <Link to="/cart" className="relative text-white hover:text-yellow-400">
+              <ShoppingBag className="w-6 h-6" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+
+            {user ? (
+              <button onClick={handleLogout} className="text-white hover:text-yellow-400">
+                <User className="w-6 h-6" />
+              </button>
+            ) : (
+              <button onClick={onAuthOpen} className="text-white hover:text-yellow-400">
+                <User className="w-6 h-6" />
+              </button>
+            )}
+          </div>
+
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-white hover:text-yellow-400"
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-2 bg-black/95 backdrop-blur-md border-b border-white/10 rounded-b-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <Link to="/" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Home</Link>
+              <a href="/#f1-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Chaos Edition</a>
+              <a href="/#dark-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Dark Edition</a>
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  handleSignatureClick();
+                }}
+                className="block w-full text-left px-3 py-2 text-white hover:text-yellow-400"
+              >
+                Signature Edition
+              </button>
+              <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">About</Link>
+            </div>
+          </div>
+        )}
+
+        {/* Coming Soon Toast */}
+        {showComingSoon && (
+          <div className="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow-lg z-50">
+            Coming Soon!
+            <button onClick={() => setShowComingSoon(false)} className="ml-4 font-bold">✕</button>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;
