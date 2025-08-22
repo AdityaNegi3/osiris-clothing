@@ -2,44 +2,60 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]  # deploy whenever you push to main
+    branches: [ "main" ]          # deploy whenever you push to main
+  workflow_dispatch:               # allow manual runs
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      # 👇 Write .env so Vite sees your Clerk key at build time
+      - name: Create .env for Vite
+        run: |
+          cat > .env << 'EOF'
+          VITE_CLERK_PUBLISHABLE_KEY=${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}
+          EOF
 
       - name: Build project
         run: npm run build
 
+      # 👇 SPA refresh fix for GitHub Pages
+      - name: Add 404 fallback
+        run: cp dist/index.html dist/404.html
+
       - name: Upload production-ready build files
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
