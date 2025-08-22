@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+\import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 
@@ -9,7 +9,9 @@ import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import AboutPage from "./pages/AboutPage";
-import ThankYou from "./pages/ThankYou"; // ✅ Import ThankYou page
+import ThankYou from "./pages/ThankYou";
+
+import AuthModal from "./components/AuthModal"; // ✅ NEW import
 
 // ✅ Pages for F1 and Dark editions
 const F1Edition = () => (
@@ -48,6 +50,8 @@ function ScrollToHashElement() {
 }
 
 function App() {
+  const [showAuth, setShowAuth] = useState(false); // ✅ new state for modal
+
   return (
     <CartProvider>
       <Router>
@@ -56,7 +60,8 @@ function App() {
           <ScrollToTop />
           <ScrollToHashElement />
 
-          <Header />
+          {/* ✅ Pass handler to Header so "Sign In" button can open modal */}
+          <Header onSignInClick={() => setShowAuth(true)} />
 
           <main>
             <Routes>
@@ -71,6 +76,9 @@ function App() {
           </main>
 
           <Footer />
+
+          {/* ✅ Auth Modal */}
+          <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} />
         </div>
       </Router>
     </CartProvider>
