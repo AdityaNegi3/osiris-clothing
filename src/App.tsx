@@ -7,8 +7,7 @@ import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
-import ThankYou from './pages/ThankYou'; 
-import AuthPopup from './AuthPopup'; // ✅ Import Auth Popup
+import ThankYou from './pages/ThankYou'; // ✅ Import ThankYou page
 
 // Pages for F1 and Dark editions
 const F1Edition = () => (
@@ -50,13 +49,9 @@ function App() {
     <CartProvider>
       <Router>
         <div className="min-h-screen bg-black text-white">
-          <ScrollToTop />
+          <ScrollToTop /> {/* 🔁 Always scroll to top on new page */}
           <ScrollToHashElement />
           <Header />
-
-          {/* ✅ Auth Popup shows on first load */}
-          <AuthPopup />
-
           <main>
             <Routes>
               <Route path="/" element={<HomePage />} />
