@@ -9,7 +9,6 @@ const KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
 
 const Root: React.FC = () => {
   if (!KEY) {
-    // Don't crash production if the key isn't injected.
     console.warn("⚠️ Missing VITE_CLERK_PUBLISHABLE_KEY. Rendering without Clerk.");
     return <App />;
   }
