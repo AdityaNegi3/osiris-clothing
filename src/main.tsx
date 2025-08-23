@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-react";
+import { ClerkProvider } from "@clerk/clerk-react";
 import { BrowserRouter } from "react-router-dom";
 
 const KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
@@ -12,9 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     {KEY ? (
       <ClerkProvider publishableKey={KEY} afterSignOutUrl="/">
         <BrowserRouter>
-          <ClerkLoaded>
-            <App />
-          </ClerkLoaded>
+          <App />
         </BrowserRouter>
       </ClerkProvider>
     ) : (
