@@ -1,5 +1,6 @@
+// src/App.tsx
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 
 import Header from "./components/Header";
@@ -9,7 +10,7 @@ import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import AboutPage from "./pages/AboutPage";
-import ThankYou from "./pages/ThankYou"; // ✅ Import ThankYou page
+import ThankYou from "./pages/ThankYou";
 
 // ✅ Pages for F1 and Dark editions
 const F1Edition = () => (
@@ -23,58 +24,47 @@ const DarkEdition = () => (
 // 🔁 Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
   return null;
 }
 
 // ✅ Smooth scrolling to hash targets
 function ScrollToHashElement() {
   const { hash } = useLocation();
-
   useEffect(() => {
     if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [hash]);
-
   return null;
 }
 
-function App() {
+export default function App() {
   return (
     <CartProvider>
-      <Router>
-        <div className="min-h-screen bg-black text-white">
-          {/* 🔁 Always scroll to top on new page */}
-          <ScrollToTop />
-          <ScrollToHashElement />
+      <div className="min-h-screen bg-black text-white">
+        <ScrollToTop />
+        <ScrollToHashElement />
 
-          <Header />
+        <Header />
 
-          <main>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/collections/f1" element={<F1Edition />} />
-              <Route path="/collections/dark" element={<DarkEdition />} />
-              <Route path="/thank-you" element={<ThankYou />} />
-            </Routes>
-          </main>
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/collections/f1" element={<F1Edition />} />
+            <Route path="/collections/dark" element={<DarkEdition />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+          </Routes>
+        </main>
 
-          <Footer />
-        </div>
-      </Router>
+        <Footer />
+      </div>
     </CartProvider>
   );
 }
-
-export default App;
