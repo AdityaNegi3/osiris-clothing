@@ -1,20 +1,20 @@
-// src/components/Header.tsx
+// Header.tsx
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 interface HeaderProps {
-  onSignInClick?: () => void;
+  // onSignInClick?: () => void; // (no longer needed with Clerk)
 }
 
-const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
+const Header: React.FC<HeaderProps> = () => {
   const { getTotalItems } = useCart();
-  const totalItems = getTotalItems();
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const totalItems = getTotalItems();
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleSignatureClick = () => {
@@ -26,20 +26,9 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
     if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     setDropdownOpen(true);
   };
+
   const handleMouseLeave = () => {
     closeTimeoutRef.current = setTimeout(() => setDropdownOpen(false), 200);
-  };
-
-  // open Clerk modal if Clerk is present; otherwise use fallback
-  const openSignIn = () => {
-    const anyWin = window as any;
-    if (anyWin?.Clerk?.openSignIn) {
-      anyWin.Clerk.openSignIn({});
-    } else if (onSignInClick) {
-      onSignInClick(); // your own modal if you keep one
-    } else {
-      alert("Sign in is currently unavailable.");
-    }
   };
 
   return (
@@ -47,14 +36,17 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Line 1: Logo Centered */}
         <div className="flex justify-center">
-          <Link to="/" className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300"
+          >
             OSIRIS
           </Link>
         </div>
 
-        {/* Line 2 */}
+        {/* Line 2: Cart LEFT, Nav CENTER, Auth RIGHT */}
         <div className="hidden md:flex items-center justify-between mt-4 relative">
-          {/* Left: Cart */}
+          {/* LEFT: Cart */}
           <div className="w-1/3 flex items-center">
             <Link to="/cart" className="relative text-white hover:text-yellow-400">
               <ShoppingBag className="w-6 h-6" />
@@ -66,38 +58,73 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
             </Link>
           </div>
 
-          {/* Center nav */}
-          <div className="flex justify-center space-x-8 w-1/3 absolute left-1/2 transform -translate-x-1/2">
-            <Link to="/" className="text-white hover:text-yellow-400 font-medium">Home</Link>
+          {/* CENTER: Navigation */}
+          <div className="flex justify-center space-x-8 w-1/3 absolute left-1/2 -translate-x-1/2">
+            <Link to="/" className="text-white hover:text-yellow-400 font-medium">
+              Home
+            </Link>
 
-            <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-              <button className="text-white hover:text-yellow-400 font-medium">Collections</button>
+            <div
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <button className="text-white hover:text-yellow-400 font-medium">
+                Collections
+              </button>
               {dropdownOpen && (
-                <div className="absolute mt-2 w-48 bg-black bg-opacity-90 border border-white/10 rounded shadow-lg z-50">
-                  <a href="/#f1-edition" className="block px-4 py-2 hover:bg-gray-800 text-white text-sm">Chaos Edition</a>
-                  <a href="/#dark-edition" className="block px-4 py-2 hover:bg-gray-800 text-white text-sm">Dark Edition</a>
-                  <button onClick={handleSignatureClick} className="block w-full text-left px-4 py-2 hover:bg-gray-800 text-white text-sm">
+                <div className="absolute mt-2 w-48 bg-black/90 border border-white/10 rounded shadow-lg z-50">
+                  <a
+                    href="/#f1-edition"
+                    className="block px-4 py-2 hover:bg-gray-800 text-white text-sm"
+                  >
+                    Chaos Edition
+                  </a>
+                  <a
+                    href="/#dark-edition"
+                    className="block px-4 py-2 hover:bg-gray-800 text-white text-sm"
+                  >
+                    Dark Edition
+                  </a>
+                  <button
+                    onClick={handleSignatureClick}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-800 text-white text-sm"
+                  >
                     Signature Edition
                   </button>
                 </div>
               )}
             </div>
 
-            <Link to="/about" className="text-white hover:text-yellow-400 font-medium">About</Link>
+            <Link to="/about" className="text-white hover:text-yellow-400 font-medium">
+              About
+            </Link>
           </div>
 
-          {/* Right: Sign In (no Clerk imports) */}
-          <div className="w-1/3 flex justify-end items-center gap-3">
-            <button
-              onClick={openSignIn}
-              className="px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition"
-            >
-              Sign In
-            </button>
+          {/* RIGHT: Auth (Clerk) */}
+          <div className="w-1/3 flex justify-end items-center">
+            <SignedOut>
+              <SignInButton mode="modal" appearance={{
+                elements: {
+                  button: "px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition"
+                }
+              }}>
+                Sign In
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton
+                appearance={{
+                  elements: {
+                    userButtonAvatarBox: "w-8 h-8",
+                  },
+                }}
+              />
+            </SignedIn>
           </div>
         </div>
 
-        {/* Mobile bar */}
+        {/* Mobile: Cart (left) + Menu (right) */}
         <div className="md:hidden flex justify-between items-center mt-4">
           <Link to="/cart" className="relative text-white hover:text-yellow-400">
             <ShoppingBag className="w-6 h-6" />
@@ -107,36 +134,84 @@ const Header: React.FC<HeaderProps> = ({ onSignInClick }) => {
               </span>
             )}
           </Link>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white hover:text-yellow-400">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-white hover:text-yellow-400"
+          >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile dropdown */}
+        {/* Mobile Dropdown */}
         {isMenuOpen && (
           <div className="md:hidden mt-2 bg-black/95 backdrop-blur-md border-b border-white/10 rounded-b-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link to="/" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Home</Link>
-              <a href="/#f1-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Chaos Edition</a>
-              <a href="/#dark-edition" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">Dark Edition</a>
-              <button onClick={() => { setIsMenuOpen(false); handleSignatureClick(); }} className="block w-full text-left px-3 py-2 text-white hover:text-yellow-400">Signature Edition</button>
-              <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-white hover:text-yellow-400">About</Link>
-
-              <button
-                onClick={() => { setIsMenuOpen(false); openSignIn(); }}
-                className="block w-full text-left px-3 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black rounded-md"
+              <Link
+                to="/"
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2 text-white hover:text-yellow-400"
               >
-                Sign In
+                Home
+              </Link>
+              <a
+                href="/#f1-edition"
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2 text-white hover:text-yellow-400"
+              >
+                Chaos Edition
+              </a>
+              <a
+                href="/#dark-edition"
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2 text-white hover:text-yellow-400"
+              >
+                Dark Edition
+              </a>
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  handleSignatureClick();
+                }}
+                className="block w-full text-left px-3 py-2 text-white hover:text-yellow-400"
+              >
+                Signature Edition
               </button>
+              <Link
+                to="/about"
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2 text-white hover:text-yellow-400"
+              >
+                About
+              </Link>
+
+              {/* Mobile Auth (Clerk) */}
+              <SignedOut>
+                <SignInButton mode="modal" appearance={{
+                  elements: {
+                    button: "w-full text-left px-3 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black rounded-md"
+                  }
+                }}>
+                  Sign In
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <div className="px-3 py-2">
+                  <UserButton
+                    appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }}
+                  />
+                </div>
+              </SignedIn>
             </div>
           </div>
         )}
 
-        {/* Toast */}
+        {/* Coming Soon Toast */}
         {showComingSoon && (
           <div className="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow-lg z-50">
             Coming Soon!
-            <button onClick={() => setShowComingSoon(false)} className="ml-4 font-bold">✕</button>
+            <button onClick={() => setShowComingSoon(false)} className="ml-4 font-bold">
+              ✕
+            </button>
           </div>
         )}
       </div>
