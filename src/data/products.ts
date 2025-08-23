@@ -32,7 +32,7 @@ export const products: Product[] = [
   {
     id: 'limited-4',
     name: 'PINK FLOYD',
-    price: 1499,
+    price: 14,
     category: 'limited',
     frontImage: '/pink floyd front.png',
     backImage: '/pink floyd back.png',
