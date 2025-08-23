@@ -1,16 +1,10 @@
-// src/context/CartContext.tsx
 import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  ReactNode,
+  createContext, useContext, useEffect, useRef, useState, ReactNode,
 } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { Product } from "../types/Product";
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
   size: string;
 }
@@ -32,145 +26,135 @@ export const useCart = () => {
   return ctx;
 };
 
-// --- config: choose behavior on sign-out ---
-const CLEAR_ON_SIGN_OUT = true; // set to false if you want to keep guest cart after logout
+/** ---- Config ---- **/
+const GUEST_LS_KEY = "osiris.cart.guest.v1";
+/** How to combine guest + account carts on first sign-in on a device:
+ *  "server_wins"         -> use account cart; ignore guest items
+ *  "merge_quantities"    -> merge by (id+size), add quantities (recommended)
+ */
+const MERGE_STRATEGY: "server_wins" | "merge_quantities" = "merge_quantities";
 
-// --- storage keys ---
-const LS_GUEST = "osiris.cart.guest.v1";
-const userKey = (userId: string) => `osiris.cart.user.${userId}.v1`;
-
-// --- utils ---
+/** ---- Helpers ---- **/
 const keyFor = (i: { id: string; size: string }) => `${i.id}__${i.size}`;
-
-function mergeCarts(a: CartItem[], b: CartItem[]): CartItem[] {
+const safeParse = <T,>(raw: string | null, fallback: T): T => {
+  try { return raw ? (JSON.parse(raw) as T) : fallback; } catch { return fallback; }
+};
+const mergeCarts = (a: CartItem[], b: CartItem[]) => {
+  if (MERGE_STRATEGY === "server_wins") return a.slice();
   const map = new Map<string, CartItem>();
   [...a, ...b].forEach((it) => {
     const k = keyFor(it);
     const prev = map.get(k);
     map.set(k, prev ? { ...prev, quantity: prev.quantity + it.quantity } : { ...it });
   });
-  return Array.from(map.values());
-}
-
-function safeParse<T>(raw: string | null, fallback: T): T {
-  try {
-    return raw ? (JSON.parse(raw) as T) : fallback;
-  } catch {
-    return fallback;
-  }
-}
+  return [...map.values()];
+};
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { isLoaded, isSignedIn, user } = useUser();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const prevSignedIn = useRef<boolean>(false);
-  const initialised = useRef(false);
-  const debounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initRef = useRef(false);
+  const lastUserIdRef = useRef<string | null>(null);
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 1) Initial load: start with guest cart from localStorage
+  /** 1) Initial: load guest cart so signed-out users keep items between refreshes */
   useEffect(() => {
-    if (initialised.current) return;
-    const guest = safeParse<CartItem[]>(localStorage.getItem(LS_GUEST), []);
+    if (initRef.current) return;
+    const guest = safeParse<CartItem[]>(localStorage.getItem(GUEST_LS_KEY), []);
     setCartItems(guest);
-    initialised.current = true;
+    initRef.current = true;
   }, []);
 
-  // 2) React to auth state transitions
+  /** 2) When auth state changes, sync with Clerk */
   useEffect(() => {
     if (!isLoaded) return;
-
-    // just signed in
-    if (!prevSignedIn.current && isSignedIn && user) {
-      (async () => {
+    (async () => {
+      // User just signed in OR switched account
+      if (isSignedIn && user && lastUserIdRef.current !== user.id) {
         try {
-          // pull server cart from privateMetadata
+          // Always fetch fresh metadata (avoids stale cache when coming from another device)
+          await user.reload();
           const meta = (user.privateMetadata as any) || {};
-          const server: CartItem[] = Array.isArray(meta.cart) ? meta.cart : [];
+          const serverCart: CartItem[] = Array.isArray(meta.cart) ? meta.cart : [];
 
-          // merge once with any guest cart
-          const guest = safeParse<CartItem[]>(localStorage.getItem(LS_GUEST), []);
-          const merged = mergeCarts(server, guest);
+          const guest = safeParse<CartItem[]>(localStorage.getItem(GUEST_LS_KEY), []);
 
+          // Merge (or server wins) only once on this device after sign-in
+          const merged = mergeCarts(serverCart, guest);
+
+          // Set UI state
           setCartItems(merged);
 
-          // persist merged to local (user-specific) + clear guest store
-          localStorage.setItem(userKey(user.id), JSON.stringify(merged));
-          localStorage.removeItem(LS_GUEST);
+          // Persist to Clerk (account)
+          await user.update({
+            privateMetadata: { ...(user.privateMetadata || {}), cart: merged },
+          });
 
-          // push merged back to Clerk
-          await user.update({ privateMetadata: { ...(user.privateMetadata || {}), cart: merged } });
+          // Clear guest cart after successful upload
+          localStorage.removeItem(GUEST_LS_KEY);
+
+          lastUserIdRef.current = user.id;
         } catch (e) {
-          console.warn("[Cart] merge on sign-in failed:", e);
+          console.warn("[Cart] sign-in sync failed:", e);
         }
-      })();
-    }
-
-    // just signed out
-    if (prevSignedIn.current && !isSignedIn) {
-      if (CLEAR_ON_SIGN_OUT) {
-        setCartItems([]);
-        localStorage.removeItem(LS_GUEST); // optional: also remove guest stash
-      } else {
-        // fallback to guest cart if you prefer keeping it
-        const guest = safeParse<CartItem[]>(localStorage.getItem(LS_GUEST), []);
-        setCartItems(guest);
       }
-    }
 
-    prevSignedIn.current = isSignedIn;
-  }, [isLoaded, isSignedIn, user]);
+      // User just signed out
+      if (!isSignedIn && lastUserIdRef.current) {
+        // Keep their last cart in guest storage so they still see items as a guest (optional)
+        localStorage.setItem(GUEST_LS_KEY, JSON.stringify(cartItems));
+        lastUserIdRef.current = null;
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded, isSignedIn, user?.id]);
 
-  // 3) Persist changes
+  /** 3) Persist changes:
+   * - Signed out -> write guest localStorage
+   * - Signed in  -> debounce write to Clerk privateMetadata (account) + keep guest empty
+   */
   useEffect(() => {
-    if (!initialised.current) return;
+    if (!initRef.current) return;
 
-    // always save guest snapshot so non-auth users keep their cart
     if (!isSignedIn) {
-      localStorage.setItem(LS_GUEST, JSON.stringify(cartItems));
+      localStorage.setItem(GUEST_LS_KEY, JSON.stringify(cartItems));
     } else if (user) {
-      // save a user-local snapshot (handy for quick reloads)
-      localStorage.setItem(userKey(user.id), JSON.stringify(cartItems));
-
-      // debounce writes to Clerk privateMetadata
-      if (debounce.current) clearTimeout(debounce.current);
-      debounce.current = setTimeout(async () => {
+      // Debounce Clerk writes to avoid spamming updates
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+      saveTimer.current = setTimeout(async () => {
         try {
           await user.update({
             privateMetadata: { ...(user.privateMetadata || {}), cart: cartItems },
           });
         } catch (e) {
-          console.warn("[Cart] save to Clerk failed:", e);
+          console.warn("[Cart] account save failed:", e);
         }
       }, 500);
     }
-    return () => {
-      if (debounce.current) clearTimeout(debounce.current);
-    };
+    return () => { if (saveTimer.current) clearTimeout(saveTimer.current); };
   }, [cartItems, isSignedIn, user]);
 
-  // --- cart ops ---
+  /** ---- Cart operations ---- **/
   const addToCart = (product: Product, size: string) => {
     setCartItems((prev) => {
       const idx = prev.findIndex((i) => i.id === product.id && i.size === size);
       if (idx >= 0) {
-        const copy = [...prev];
-        copy[idx] = { ...copy[idx], quantity: copy[idx].quantity + 1 };
-        return copy;
-    }
+        const next = [...prev];
+        next[idx] = { ...next[idx], quantity: next[idx].quantity + 1 };
+        return next;
+      }
       return [...prev, { ...product, size, quantity: 1 }];
     });
   };
 
-  const removeFromCart = (id: string, size: string) => {
+  const removeFromCart = (id: string, size: string) =>
     setCartItems((prev) => prev.filter((i) => !(i.id === id && i.size === size)));
-  };
 
-  const updateQuantity = (id: string, size: string, quantity: number) => {
+  const updateQuantity = (id: string, size: string, quantity: number) =>
     setCartItems((prev) => {
       if (quantity <= 0) return prev.filter((i) => !(i.id === id && i.size === size));
       return prev.map((i) => (i.id === id && i.size === size ? { ...i, quantity } : i));
     });
-  };
 
   const clearCart = () => setCartItems([]);
 
