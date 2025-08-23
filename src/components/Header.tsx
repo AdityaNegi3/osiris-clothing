@@ -1,13 +1,11 @@
-// Header.tsx
+// src/components/Header.tsx
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
-interface HeaderProps {
-  // onSignInClick?: () => void; // (no longer needed with Clerk)
-}
+interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
   const { getTotalItems } = useCart();
@@ -69,26 +67,36 @@ const Header: React.FC<HeaderProps> = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="text-white hover:text-yellow-400 font-medium">
+              <button
+                className="text-white hover:text-yellow-400 font-medium focus:outline-none focus:ring-2 focus:ring-yellow-400/50 rounded"
+                aria-haspopup="menu"
+                aria-expanded={dropdownOpen}
+              >
                 Collections
               </button>
               {dropdownOpen && (
-                <div className="absolute mt-2 w-48 bg-black/90 border border-white/10 rounded shadow-lg z-50">
+                <div
+                  className="absolute mt-2 w-48 bg-black/90 border border-white/10 rounded shadow-lg z-50"
+                  role="menu"
+                >
                   <a
                     href="/#f1-edition"
                     className="block px-4 py-2 hover:bg-gray-800 text-white text-sm"
+                    role="menuitem"
                   >
                     Chaos Edition
                   </a>
                   <a
                     href="/#dark-edition"
                     className="block px-4 py-2 hover:bg-gray-800 text-white text-sm"
+                    role="menuitem"
                   >
                     Dark Edition
                   </a>
                   <button
                     onClick={handleSignatureClick}
                     className="block w-full text-left px-4 py-2 hover:bg-gray-800 text-white text-sm"
+                    role="menuitem"
                   >
                     Signature Edition
                   </button>
@@ -102,23 +110,21 @@ const Header: React.FC<HeaderProps> = () => {
           </div>
 
           {/* RIGHT: Auth (Clerk) */}
-          <div className="w-1/3 flex justify-end items-center">
+          <div className="w-1/3 flex justify-end items-center gap-3">
             <SignedOut>
-              <SignInButton mode="modal" appearance={{
-                elements: {
-                  button: "px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition"
-                }
-              }}>
-                Sign In
+              <SignInButton mode="modal" asChild afterSignInUrl="/" afterSignUpUrl="/">
+                <button
+                  type="button"
+                  className="px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition focus:outline-none focus:ring-2 focus:ring-yellow-400/50"
+                >
+                  Sign In
+                </button>
               </SignInButton>
             </SignedOut>
             <SignedIn>
               <UserButton
-                appearance={{
-                  elements: {
-                    userButtonAvatarBox: "w-8 h-8",
-                  },
-                }}
+                appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }}
+                afterSignOutUrl="/"
               />
             </SignedIn>
           </div>
@@ -136,7 +142,9 @@ const Header: React.FC<HeaderProps> = () => {
           </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white hover:text-yellow-400"
+            className="text-white hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 rounded"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -144,7 +152,10 @@ const Header: React.FC<HeaderProps> = () => {
 
         {/* Mobile Dropdown */}
         {isMenuOpen && (
-          <div className="md:hidden mt-2 bg-black/95 backdrop-blur-md border-b border-white/10 rounded-b-lg">
+          <div
+            id="mobile-menu"
+            className="md:hidden mt-2 bg-black/95 backdrop-blur-md border-b border-white/10 rounded-b-lg"
+          >
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 to="/"
@@ -186,19 +197,15 @@ const Header: React.FC<HeaderProps> = () => {
 
               {/* Mobile Auth (Clerk) */}
               <SignedOut>
-                <SignInButton mode="modal" appearance={{
-                  elements: {
-                    button: "w-full text-left px-3 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black rounded-md"
-                  }
-                }}>
-                  Sign In
+                <SignInButton mode="modal" asChild afterSignInUrl="/" afterSignUpUrl="/">
+                  <button className="block w-full text-left px-3 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black rounded-md">
+                    Sign In
+                  </button>
                 </SignInButton>
               </SignedOut>
               <SignedIn>
                 <div className="px-3 py-2">
-                  <UserButton
-                    appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }}
-                  />
+                  <UserButton appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }} />
                 </div>
               </SignedIn>
             </div>
@@ -209,7 +216,11 @@ const Header: React.FC<HeaderProps> = () => {
         {showComingSoon && (
           <div className="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow-lg z-50">
             Coming Soon!
-            <button onClick={() => setShowComingSoon(false)} className="ml-4 font-bold">
+            <button
+              onClick={() => setShowComingSoon(false)}
+              className="ml-4 font-bold focus:outline-none"
+              aria-label="Close"
+            >
               ✕
             </button>
           </div>
