@@ -14,7 +14,7 @@ export const products: Product[] = [
   {
     id: 'limited-2',
     name: 'THE BEATLES',
-    price: 1499,
+    price: 1,
     category: 'limited',
     frontImage: '/the beatles front.png',
     backImage: '/the beatles back.png',
@@ -23,7 +23,7 @@ export const products: Product[] = [
   {
     id: 'limited-3',
     name: 'BLACK SABBATH',
-    price: 1499,
+    price: 1,
     category: 'limited',
     frontImage: '/black sabbath front.png',
     backImage: '/black sabbath back.png',
