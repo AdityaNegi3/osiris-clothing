@@ -50,7 +50,7 @@ export const products: Product[] = [
   {
     id: 'limited-6',
     name: 'ALL BANDS',
-    price: 1499,
+    price: 1,
     category: 'limited',
     frontImage: '/osiris front.png',
     backImage: '/all in one back.png',
