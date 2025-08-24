@@ -40,7 +40,7 @@ export const products: Product[] = [
   },
   {
     id: 'limited-5',
-    name: 'METALLICA',
+    name: 'test',
     price: 1,
     category: 'limited',
     frontImage: '/metallica front.png',
