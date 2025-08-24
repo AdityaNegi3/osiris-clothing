@@ -34,8 +34,8 @@ export const products: Product[] = [
     name: 'PINK FLOYD',
     price: 1,
     category: 'limited',
-    frontImage: '/pink floyd front.png',
-    backImage: '/pink floyd back.png',
+    frontImage: '/sample 1.png',
+    backImage: '/back.png',
     description: 'Heritage collection piece with timeless design and premium craftsmanship.'
   },
   {
