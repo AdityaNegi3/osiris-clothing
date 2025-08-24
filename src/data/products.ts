@@ -31,7 +31,7 @@ export const products: Product[] = [
   },
   {
     id: 'limited-4',
-    name: 'PINK FLOYD',
+    name: 'test sample',
     price: 1,
     category: 'limited',
     frontImage: '/sample1.png',
