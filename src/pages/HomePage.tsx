@@ -49,7 +49,7 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* FIX: 2 columns on mobile, same on desktop */}
+          {/* FIX: 2 columns on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
             {limitedProducts.map((product) => (
               <Link
@@ -57,20 +57,19 @@ const HomePage: React.FC = () => {
                 to={`/product/${product.id}`}
                 className="group bg-gray-900/50 rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
               >
-                <div className="aspect-w-3 aspect-h-4 relative overflow-hidden">
+                <div className="relative overflow-hidden">
                   {/* Front */}
                   <img
                     src={product.frontImage}
                     alt={product.name}
-                    className="w-full h-64 md:h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
+                    className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
                   />
                   {/* Back */}
                   <img
                     src={product.backImage}
                     alt={`${product.name} back`}
-                    className="w-full h-64 md:h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                    className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
@@ -109,7 +108,7 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* FIX: 2 columns on mobile, 3 on md, 4 on lg (desktop unchanged) */}
+          {/* FIX: 2 columns on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {darkProducts.map((product) => (
               <Link
@@ -117,20 +116,19 @@ const HomePage: React.FC = () => {
                 to={`/product/${product.id}`}
                 className="group bg-gray-900/50 rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
               >
-                <div className="aspect-w-3 aspect-h-4 relative overflow-hidden">
+                <div className="relative overflow-hidden">
                   {/* Front */}
                   <img
                     src={product.frontImage}
                     alt={product.name}
-                    className="w-full h-64 md:h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
+                    className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
                   />
                   {/* Back */}
                   <img
                     src={product.backImage}
                     alt={`${product.name} back`}
-                    className="w-full h-64 md:h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                    className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
