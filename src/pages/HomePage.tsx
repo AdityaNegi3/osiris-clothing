@@ -49,13 +49,13 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* FIX: 2 columns on mobile */}
+          {/* 2 columns on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
             {limitedProducts.map((product) => (
               <Link
                 key={product.id}
                 to={`/product/${product.id}`}
-                className="group bg-gray-900/50 rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
+                className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
               >
                 <div className="relative overflow-hidden">
                   {/* Front */}
@@ -108,13 +108,13 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* FIX: 2 columns on mobile */}
+          {/* 2 columns on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {darkProducts.map((product) => (
               <Link
                 key={product.id}
                 to={`/product/${product.id}`}
-                className="group bg-gray-900/50 rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
+                className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
               >
                 <div className="relative overflow-hidden">
                   {/* Front */}
