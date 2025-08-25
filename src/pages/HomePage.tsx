@@ -49,7 +49,8 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* FIX: 2 columns on mobile, same on desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
             {limitedProducts.map((product) => (
               <Link
                 key={product.id}
@@ -61,13 +62,13 @@ const HomePage: React.FC = () => {
                   <img
                     src={product.frontImage}
                     alt={product.name}
-                    className="w-full h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
+                    className="w-full h-64 md:h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
                   />
                   {/* Back */}
                   <img
                     src={product.backImage}
                     alt={`${product.name} back`}
-                    className="w-full h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                    className="w-full h-64 md:h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
                 </div>
@@ -108,7 +109,8 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* FIX: 2 columns on mobile, 3 on md, 4 on lg (desktop unchanged) */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {darkProducts.map((product) => (
               <Link
                 key={product.id}
@@ -120,13 +122,13 @@ const HomePage: React.FC = () => {
                   <img
                     src={product.frontImage}
                     alt={product.name}
-                    className="w-full h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
+                    className="w-full h-64 md:h-80 object-cover transition-opacity duration-700 group-hover:opacity-0"
                   />
                   {/* Back */}
                   <img
                     src={product.backImage}
                     alt={`${product.name} back`}
-                    className="w-full h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                    className="w-full h-64 md:h-80 object-cover absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
                 </div>
