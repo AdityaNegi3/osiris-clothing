@@ -4,7 +4,7 @@ export const products: Product[] = [
   // LIMITED Edition Collection
   {
     id: 'limited-1',
-    name: 'LINKIN PARK ',
+    name: 'buy buy buy',
     price: 1,
     category: 'limited',
     frontImage: '/linkin park front.png',
