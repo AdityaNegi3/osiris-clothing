@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion'; // ✅ Added
 
 const HomePage: React.FC = () => {
   const limitedProducts = products.filter((p) => p.category === 'limited');
@@ -52,50 +51,38 @@ const HomePage: React.FC = () => {
 
           {/* 2 columns on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
-            {limitedProducts.map((product, i) => {
-              const col = i % 3; // detect column (0=left,1=middle,2=right)
-              const fromX = col === 0 ? -100 : col === 2 ? 100 : 0;
-
-              return (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, x: fromX }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
-                  <Link
-                    to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
-                  >
-                    <div className="relative overflow-hidden">
-                      {/* Front */}
-                      <img
-                        src={product.frontImage}
-                        alt={product.name}
-                        className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
-                      />
-                      {/* Back */}
-                      <img
-                        src={product.backImage}
-                        alt={`${product.name} back`}
-                        className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
-                        {product.name}
-                      </h3>
-                      <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
-                      <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
-                        <span className="text-sm">View Details</span>
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
+            {limitedProducts.map((product) => (
+              <Link
+                key={product.id}
+                to={`/product/${product.id}`}
+                className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
+              >
+                <div className="relative overflow-hidden">
+                  {/* Front */}
+                  <img
+                    src={product.frontImage}
+                    alt={product.name}
+                    className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
+                  />
+                  {/* Back */}
+                  <img
+                    src={product.backImage}
+                    alt={`${product.name} back`}
+                    className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                    {product.name}
+                  </h3>
+                  <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
+                  <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
+                    <span className="text-sm">View Details</span>
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -123,50 +110,38 @@ const HomePage: React.FC = () => {
 
           {/* 2 columns on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {darkProducts.map((product, i) => {
-              const col = i % 4; // detect column (0=left,3=right)
-              const fromX = col === 0 ? -100 : col === 3 ? 100 : 0;
-
-              return (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, x: fromX }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
-                  <Link
-                    to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
-                  >
-                    <div className="relative overflow-hidden">
-                      {/* Front */}
-                      <img
-                        src={product.frontImage}
-                        alt={product.name}
-                        className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
-                      />
-                      {/* Back */}
-                      <img
-                        src={product.backImage}
-                        alt={`${product.name} back`}
-                        className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
-                        {product.name}
-                      </h3>
-                      <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
-                      <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
-                        <span className="text-sm">View Details</span>
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
+            {darkProducts.map((product) => (
+              <Link
+                key={product.id}
+                to={`/product/${product.id}`}
+                className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
+              >
+                <div className="relative overflow-hidden">
+                  {/* Front */}
+                  <img
+                    src={product.frontImage}
+                    alt={product.name}
+                    className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
+                  />
+                  {/* Back */}
+                  <img
+                    src={product.backImage}
+                    alt={`${product.name} back`}
+                    className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                    {product.name}
+                  </h3>
+                  <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
+                  <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
+                    <span className="text-sm">View Details</span>
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
