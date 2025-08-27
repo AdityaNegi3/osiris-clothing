@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="pt-16">
+    <div className="pt-16 overflow-x-hidden bg-black"> {/* ✅ Prevents horizontal scroll */}
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden hero-background">
         <div className="absolute inset-0 bg-black/50"></div>
@@ -50,10 +50,9 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* 2 columns on mobile */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 overflow-x-hidden"> {/* ✅ Fixed */}
             {limitedProducts.map((product, i) => {
-              const col = i % 3; // detect column (0=left,1=middle,2=right)
+              const col = i % 3; // detect column
               const fromX = col === 0 ? -100 : col === 2 ? 100 : 0;
 
               return (
@@ -66,7 +65,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105" // ✅ Only on desktop
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
@@ -106,10 +105,8 @@ const HomePage: React.FC = () => {
         className="py-20 relative bg-cover bg-center"
         style={{ backgroundImage: "url('/dark-bg.png')" }}
       >
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
 
-        {/* Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
@@ -121,10 +118,9 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* 2 columns on mobile */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 overflow-x-hidden"> {/* ✅ Fixed */}
             {darkProducts.map((product, i) => {
-              const col = i % 4; // detect column (0=left,3=right)
+              const col = i % 4;
               const fromX = col === 0 ? -100 : col === 3 ? 100 : 0;
 
               return (
@@ -137,7 +133,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 hover:transform hover:scale-105"
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105" // ✅ Only on desktop
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
@@ -181,7 +177,6 @@ const HomePage: React.FC = () => {
         </button>
       </div>
 
-      {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
           <div className="bg-white text-black p-8 rounded-lg max-w-md w-full relative">
