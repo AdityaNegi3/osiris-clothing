@@ -43,8 +43,8 @@ export const products: Product[] = [
     name: 'test',
     price: 1,
     category: 'limited',
-    frontImage: '/snake12 front.png',
-    backImage: '/snake12 back.png',
+    frontImage: '/tes12.png',
+    backImage: '/test21.png',
     description: 'Luxury edition with exclusive design elements and superior material quality.'
   },
   {
