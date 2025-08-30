@@ -65,7 +65,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105" // ✅ Only on desktop
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
@@ -99,14 +99,13 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Dark Edition */}
+      {/* Dark Edition (Updated with Chaos bg) */}
       <section
         id="dark-edition"
-        className="py-20 relative bg-cover bg-center"
-        style={{ backgroundImage: "url('/dark-bg.png')" }}
+        className="py-20 relative bg-black bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/file_0000000044c8622fb0caf79179595f70.png')" }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black"></div>
-
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
@@ -133,7 +132,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105" // ✅ Only on desktop
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
