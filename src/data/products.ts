@@ -7,8 +7,8 @@ export const products: Product[] = [
     name: 'buy buy buy',
     price: 10,
     category: 'limited',
-    frontImage: '/linkin park front.png',
-    backImage: '/linkin park back.png',
+    frontImage: '/dragon 1 back.png',
+    backImage: '/dragon 1 front.png',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
   },
   {
