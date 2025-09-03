@@ -83,7 +83,7 @@ export const products: Product[] = [
     price: 999,
     category: 'dark',
     frontImage: '/eyes front.png',
-    backImage: '/back.png',
+    backImage: '/back 12.png',
     description: 'Noir edition featuring sophisticated dark aesthetics and premium quality.'
   },
   {
@@ -91,8 +91,8 @@ export const products: Product[] = [
     name: 'Dark Edition Phantom Tee',
     price: 999,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/front 12.png',
+    backImage: '/back 12.png',
     description: 'Phantom collection with mysterious allure and exceptional craftsmanship.'
   },
   {
@@ -100,8 +100,8 @@ export const products: Product[] = [
     name: 'Dark Edition Eclipse Tee',
     price: 999,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/3758146/pexels-photo-3758146.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/3758146/pexels-photo-3758146.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/front 12.png',
+    backImage: '/back 12.png',
     description: 'Eclipse edition symbolizing the union of light and shadow in perfect harmony.'
   },
   {
@@ -109,8 +109,8 @@ export const products: Product[] = [
     name: 'Dark Edition Storm Tee',
     price: 999,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/1964979/pexels-photo-1964979.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/1964979/pexels-photo-1964979.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/front 12.png',
+    backImage: '/back 12.png',
     description: 'Storm edition with bold aesthetics and fierce energy, crafted for statement wear.'
   },
   {
@@ -118,8 +118,8 @@ export const products: Product[] = [
     name: 'Dark Edition Flame Tee',
     price: 999,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/2065200/pexels-photo-2065200.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/2065200/pexels-photo-2065200.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/front 12.png',
+    backImage: '/back 12.png',
     description: 'Flame edition inspired by passion and intensity, designed with vibrant details.'
   },
   {
@@ -127,8 +127,8 @@ export const products: Product[] = [
     name: 'Dark Edition Mist Tee',
     price: 999,
     category: 'dark',
-    frontImage: 'https://images.pexels.com/photos/1055691/pexels-photo-1055691.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
-    backImage: 'https://images.pexels.com/photos/1055691/pexels-photo-1055691.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop',
+    frontImage: '/front 12.png',
+    backImage: '/back 12.png',
     description: 'Mist edition embodying subtle elegance with soft mysterious tones.'
   }
 ];
