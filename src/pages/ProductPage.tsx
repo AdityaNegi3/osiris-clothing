@@ -224,11 +224,12 @@ const ProductPage: React.FC = () => {
               </button>
             </div>
             <div className="bg-white p-4 rounded-lg">
-              <img
-                src="https://images.pexels.com/photos/5625120/pexels-photo-5625120.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-                alt="Size Chart"
-                className="w-full rounded"
-              />
+             <img
+  src="/size-chart.png"
+  alt="Size Chart"
+  className="max-w-full max-h-[80vh] object-contain mx-auto rounded"
+/>
+
             </div>
             <p className="text-gray-400 text-sm mt-4 text-center">
               Measurements are in inches. For best fit, refer to the size chart above.
