@@ -56,6 +56,12 @@ const ProductPage: React.FC = () => {
     setTransformOrigin(origin);
   };
 
+  // ✅ Calculate discount %
+  const discount =
+    product.originalPrice && product.originalPrice > product.price
+      ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+      : null;
+
   return (
     <div className="pt-16 min-h-screen bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -66,7 +72,9 @@ const ProductPage: React.FC = () => {
               <img
                 src={mainImageSrc}
                 alt={`${product.name} ${currentView} view`}
-                className={`w-full h-96 lg:h-[600px] object-cover select-none transition-transform duration-200 ease-out will-change-transform ${isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
+                className={`w-full h-96 lg:h-[600px] object-cover select-none transition-transform duration-200 ease-out will-change-transform ${
+                  isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'
+                }`}
                 style={{
                   transform: isZoomed ? `scale(${ZOOM_SCALE})` : 'scale(1)',
                   transformOrigin
@@ -114,7 +122,21 @@ const ProductPage: React.FC = () => {
               <p className="text-gray-400 text-lg leading-relaxed mb-6">
                 {product.description}
               </p>
-              <div className="text-3xl font-bold text-white">₹{product.price}</div>
+
+              {/* ✅ Scratch Price + Discount */}
+              <div className="flex items-center space-x-3 mb-2">
+                {product.originalPrice && (
+                  <span className="text-gray-400 text-2xl line-through">
+                    ₹{product.originalPrice}
+                  </span>
+                )}
+                <span className="text-3xl font-bold text-white">₹{product.price}</span>
+                {discount && (
+                  <span className="text-green-500 font-semibold text-lg">
+                    {discount}% OFF
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Size Selection */}

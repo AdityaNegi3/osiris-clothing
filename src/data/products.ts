@@ -5,7 +5,8 @@ export const products: Product[] = [
   {
     id: 'limited-1',
     name: 'buy buy buy',
-    price: 10,
+    price: 1599,
+     originalPrice: 2999, // ✅ Added for discount display
     category: 'limited',
     frontImage: '/dragon 1 back.png',
     backImage: '/dragon 1 front.png',

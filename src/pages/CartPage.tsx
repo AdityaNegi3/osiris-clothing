@@ -16,10 +16,12 @@ const CartPage: React.FC = () => {
         <div className="text-center">
           <ShoppingBag className="w-16 h-16 text-gray-600 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-white mb-2">Your Cart is Empty</h2>
-          <p className="text-gray-400 mb-8">Discover our luxury collections and add items to your cart.</p>
+          <p className="text-gray-400 mb-8">
+            Discover our luxury collections and add items to your cart.
+          </p>
           <Link
             to="/"
-            className="inline-block bg-yellow-400 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors duration-300"
+            className="inline-block bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors duration-300"
           >
             Continue Shopping
           </Link>
@@ -56,25 +58,31 @@ const CartPage: React.FC = () => {
                     alt={item.name}
                     className="w-20 h-20 object-cover rounded-lg"
                   />
-                  
+
                   <div className="flex-1">
                     <h3 className="text-white font-semibold text-lg mb-1">{item.name}</h3>
                     <p className="text-gray-400 text-sm mb-2">Size: {item.size}</p>
-                    <p className="text-yellow-400 font-bold">₹{item.price}</p>
+                    <p className="text-white font-bold">₹{item.price}</p>
                   </div>
 
                   <div className="flex items-center space-x-3">
                     <button
-                      onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)}
+                      onClick={() =>
+                        updateQuantity(item.id, item.size, item.quantity - 1)
+                      }
                       className="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-gray-700 transition-colors duration-300"
                     >
                       <Minus className="w-4 h-4" />
                     </button>
-                    
-                    <span className="text-white font-semibold w-8 text-center">{item.quantity}</span>
-                    
+
+                    <span className="text-white font-semibold w-8 text-center">
+                      {item.quantity}
+                    </span>
+
                     <button
-                      onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
+                      onClick={() =>
+                        updateQuantity(item.id, item.size, item.quantity + 1)
+                      }
                       className="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-gray-700 transition-colors duration-300"
                     >
                       <Plus className="w-4 h-4" />
@@ -95,7 +103,7 @@ const CartPage: React.FC = () => {
           {/* Order Summary */}
           <div className="bg-black rounded-lg border border-white/10 p-6 h-fit">
             <h2 className="text-xl font-bold text-white mb-6">Order Summary</h2>
-            
+
             <div className="space-y-4 mb-6">
               <div className="flex justify-between text-gray-400">
                 <span>Subtotal</span>
@@ -113,13 +121,13 @@ const CartPage: React.FC = () => {
               </div>
             </div>
 
-            <button 
+            <button
               onClick={() => setShowCheckout(true)}
-              className="w-full bg-yellow-400 text-black py-3 px-6 rounded-lg font-semibold hover:bg-yellow-300 transition-colors duration-300 mb-4"
+              className="w-full bg-white text-black py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition-colors duration-300 mb-4"
             >
               Secure Checkout
             </button>
-            
+
             <Link
               to="/"
               className="block text-center text-gray-400 hover:text-white transition-colors duration-300"
@@ -143,7 +151,7 @@ const CartPage: React.FC = () => {
                 ✕
               </button>
             </div>
-            
+
             <CheckoutForm onClose={() => setShowCheckout(false)} />
           </div>
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion'; // ✅ Added
+import { motion } from 'framer-motion';
 
 const HomePage: React.FC = () => {
   const limitedProducts = products.filter((p) => p.category === 'limited');
@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="pt-16 overflow-x-hidden bg-black"> {/* ✅ Prevents horizontal scroll */}
+    <div className="pt-16 overflow-x-hidden bg-black">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden hero-background">
         <div className="absolute inset-0 bg-black/50"></div>
@@ -21,14 +21,14 @@ const HomePage: React.FC = () => {
           <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light tracking-wide">
             Where Luxury Meets Legacy
           </p>
-          <div className="h-px w-24 bg-yellow-400 mx-auto mb-8"></div>
+          <div className="h-px w-24 bg-white mx-auto mb-8"></div>
           <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed luxury-glow">
             Discover the epitome of luxury fashion. Each piece crafted with precision, 
             designed for those who understand that true elegance is timeless.
           </p>
         </div>
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-px h-12 bg-gradient-to-b from-yellow-400 to-transparent"></div>
+          <div className="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
       </section>
 
@@ -44,15 +44,15 @@ const HomePage: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
               Chaos Edition
             </h2>
-            <div className="h-px w-32 bg-yellow-400 mx-auto mb-6"></div>
+            <div className="h-px w-32 bg-white mx-auto mb-6"></div>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
               No rules. No repeats. Just pure chaos.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 overflow-x-hidden"> {/* ✅ Fixed */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 overflow-x-hidden">
             {limitedProducts.map((product, i) => {
-              const col = i % 3; // detect column
+              const col = i % 3;
               const fromX = col === 0 ? -100 : col === 2 ? 100 : 0;
 
               return (
@@ -65,7 +65,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
@@ -82,10 +82,18 @@ const HomePage: React.FC = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-white transition-colors duration-300">
                         {product.name}
                       </h3>
-                      <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
+
+                      {/* ✅ Scratch Price Feature */}
+                      <div className="flex items-center gap-2">
+                        {product.originalPrice && (
+                          <p className="text-gray-400 text-lg line-through">₹{product.originalPrice}</p>
+                        )}
+                        <p className="text-white font-bold text-xl">₹{product.price}</p>
+                      </div>
+
                       <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
                         <span className="text-sm">View Details</span>
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -99,7 +107,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Dark Edition (Updated with Chaos bg) */}
+      {/* Dark Edition */}
       <section
         id="dark-edition"
         className="py-20 relative bg-black bg-cover bg-center bg-no-repeat"
@@ -111,13 +119,13 @@ const HomePage: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
               DARK EDITION
             </h2>
-            <div className="h-px w-32 bg-yellow-400 mx-auto mb-6"></div>
+            <div className="h-px w-32 bg-white mx-auto mb-6"></div>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Embrace the shadows. Where mystery meets elegance in perfect harmony.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 overflow-x-hidden"> {/* ✅ Fixed */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 overflow-x-hidden">
             {darkProducts.map((product, i) => {
               const col = i % 4;
               const fromX = col === 0 ? -100 : col === 3 ? 100 : 0;
@@ -132,7 +140,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
@@ -149,10 +157,18 @@ const HomePage: React.FC = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-white transition-colors duration-300">
                         {product.name}
                       </h3>
-                      <p className="text-yellow-400 font-bold text-xl">₹{product.price}</p>
+
+                      {/* ✅ Scratch Price Feature */}
+                      <div className="flex items-center gap-2">
+                        {product.originalPrice && (
+                          <p className="text-gray-400 text-lg line-through">₹{product.originalPrice}</p>
+                        )}
+                        <p className="text-white font-bold text-xl">₹{product.price}</p>
+                      </div>
+
                       <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
                         <span className="text-sm">View Details</span>
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -170,7 +186,7 @@ const HomePage: React.FC = () => {
       <div className="text-center py-10">
         <button
           onClick={() => setModalOpen(true)}
-          className="text-white bg-yellow-500 hover:bg-yellow-600 px-6 py-2 rounded-lg transition"
+          className="text-black bg-white hover:bg-gray-200 px-6 py-2 rounded-lg transition"
         >
           View Signature Edition
         </button>

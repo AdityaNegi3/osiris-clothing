@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { CreditCard, Lock, Phone, Mail, MapPin, User } from 'lucide-react';
+import { CreditCard, Lock, User } from 'lucide-react';
 
 const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const { cartItems, getTotalPrice, clearCart } = useCart();
@@ -40,7 +40,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       currency: 'INR',
       name: 'Osiris',
       description: 'Luxury Clothing Purchase',
-      handler: async function (response: any) {
+      handler: async function () {
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = 'https://formsubmit.co/osirisvip.life@gmail.com';
@@ -56,15 +56,21 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         addField('Full Name', customerInfo.name);
         addField('Email', customerInfo.email);
         addField('Phone Number', customerInfo.phone);
-        addField('Address', `${customerInfo.address}, ${customerInfo.city}, ${customerInfo.state} - ${customerInfo.postalCode}`);
+        addField(
+          'Address',
+          `${customerInfo.address}, ${customerInfo.city}, ${customerInfo.state} - ${customerInfo.postalCode}`
+        );
         addField('Total Amount', `₹${totalAmount}`);
 
         cartItems.forEach((item, index) => {
-          addField(`Item ${index + 1}`, `${item.name} (Size: ${item.size}, Qty: ${item.quantity}) - ₹${item.price * item.quantity}`);
+          addField(
+            `Item ${index + 1}`,
+            `${item.name} (Size: ${item.size}, Qty: ${item.quantity}) - ₹${item.price * item.quantity}`
+          );
         });
 
         addField('_captcha', 'false');
-        addField('_next', 'https://osirisclothing.site/thank-you'); // ✅ Redirect to thank you
+        addField('_next', 'https://osirisclothing.site/thank-you'); // ✅ Redirect
 
         document.body.appendChild(form);
         form.submit();
@@ -82,7 +88,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       },
       theme: {
         color: '#F59E0B',
-      }
+      },
     };
 
     const paymentObject = new window.Razorpay(options);
@@ -100,7 +106,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         <h3 className="text-2xl font-bold text-white mb-2">Secure Checkout</h3>
         <div className="flex items-center justify-center text-gray-400 text-sm">
           <Lock className="w-4 h-4 mr-2" />
-          Powered by Razorpay & FormSubmit
+          Powered by Razorpay
         </div>
       </div>
 
@@ -113,7 +119,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
-            name="Full Name"
             placeholder="Full Name *"
             required
             onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
@@ -121,7 +126,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           />
           <input
             type="email"
-            name="Email"
             placeholder="Email Address *"
             required
             onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
@@ -131,7 +135,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
         <input
           type="tel"
-          name="Phone Number"
           placeholder="Phone Number *"
           required
           onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
@@ -139,7 +142,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         />
 
         <textarea
-          name="Address"
           placeholder="Complete Address *"
           rows={3}
           required
@@ -150,7 +152,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <input
             type="text"
-            name="City"
             placeholder="City *"
             required
             onChange={(e) => setCustomerInfo({ ...customerInfo, city: e.target.value })}
@@ -158,7 +159,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           />
           <input
             type="text"
-            name="State"
             placeholder="State *"
             required
             onChange={(e) => setCustomerInfo({ ...customerInfo, state: e.target.value })}
@@ -166,7 +166,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           />
           <input
             type="text"
-            name="PIN Code"
             placeholder="PIN Code *"
             required
             onChange={(e) => setCustomerInfo({ ...customerInfo, postalCode: e.target.value })}
@@ -182,20 +181,22 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         </h4>
         <div className="flex justify-between items-center text-white font-bold text-lg">
           <span>Total Amount</span>
-          <span className="text-yellow-400">₹{totalAmount}</span>
+          {/* ✅ Fixed: Total in white now */}
+          <span className="text-white">₹{totalAmount}</span>
         </div>
       </div>
 
+      {/* ✅ Fixed: White button */}
       <button
         type="submit"
-        className="w-full py-4 px-6 rounded-lg font-semibold text-lg bg-yellow-400 text-black hover:bg-yellow-300 hover:transform hover:scale-105"
+        className="w-full py-4 px-6 rounded-lg font-semibold text-lg bg-white text-black hover:bg-gray-200 hover:transform hover:scale-105"
       >
         <Lock className="w-5 h-5 mr-2 inline" />
         Pay ₹{totalAmount} Securely
       </button>
 
       <div className="text-center text-xs text-gray-500">
-        Secure payment via Razorpay • Order confirmation via FormSubmit
+        Secure payment via Razorpay
       </div>
     </form>
   );
