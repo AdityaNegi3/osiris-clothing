@@ -21,14 +21,14 @@ const HomePage: React.FC = () => {
           <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light tracking-wide">
             Where Luxury Meets Legacy
           </p>
-          <div className="h-px w-24 bg-white mx-auto mb-8"></div>
+          <div className="h-px w-24 bg-yellow-400 mx-auto mb-8"></div>
           <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed luxury-glow">
             Discover the epitome of luxury fashion. Each piece crafted with precision, 
             designed for those who understand that true elegance is timeless.
           </p>
         </div>
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+          <div className="w-px h-12 bg-gradient-to-b from-yellow-400 to-transparent"></div>
         </div>
       </section>
 
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
               Chaos Edition
             </h2>
-            <div className="h-px w-32 bg-white mx-auto mb-6"></div>
+            <div className="h-px w-32 bg-yellow-400 mx-auto mb-6"></div>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
               No rules. No repeats. Just pure chaos.
             </p>
@@ -65,7 +65,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
@@ -82,16 +82,20 @@ const HomePage: React.FC = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-white transition-colors duration-300">
+                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
                         {product.name}
                       </h3>
 
-                      {/* ✅ Scratch Price Feature */}
-                      <div className="flex items-center gap-2">
+                      {/* ✅ Price with Original */}
+                      <div className="flex items-center space-x-3">
                         {product.originalPrice && (
-                          <p className="text-gray-400 text-lg line-through">₹{product.originalPrice}</p>
+                          <span className="text-gray-500 line-through text-lg">
+                            ₹{product.originalPrice}
+                          </span>
                         )}
-                        <p className="text-white font-bold text-xl">₹{product.price}</p>
+                        <span className="text-yellow-400 font-bold text-xl">
+                          ₹{product.price}
+                        </span>
                       </div>
 
                       <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
@@ -119,7 +123,7 @@ const HomePage: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-wide">
               DARK EDITION
             </h2>
-            <div className="h-px w-32 bg-white mx-auto mb-6"></div>
+            <div className="h-px w-32 bg-yellow-400 mx-auto mb-6"></div>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Embrace the shadows. Where mystery meets elegance in perfect harmony.
             </p>
@@ -140,7 +144,7 @@ const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/product/${product.id}`}
-                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
+                    className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
                       {/* Front */}
@@ -157,16 +161,20 @@ const HomePage: React.FC = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-white transition-colors duration-300">
+                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
                         {product.name}
                       </h3>
 
-                      {/* ✅ Scratch Price Feature */}
-                      <div className="flex items-center gap-2">
+                      {/* ✅ Price with Original */}
+                      <div className="flex items-center space-x-3">
                         {product.originalPrice && (
-                          <p className="text-gray-400 text-lg line-through">₹{product.originalPrice}</p>
+                          <span className="text-gray-500 line-through text-lg">
+                            ₹{product.originalPrice}
+                          </span>
                         )}
-                        <p className="text-white font-bold text-xl">₹{product.price}</p>
+                        <span className="text-yellow-400 font-bold text-xl">
+                          ₹{product.price}
+                        </span>
                       </div>
 
                       <div className="flex items-center mt-4 text-gray-400 group-hover:text-white transition-colors duration-300">
@@ -186,7 +194,7 @@ const HomePage: React.FC = () => {
       <div className="text-center py-10">
         <button
           onClick={() => setModalOpen(true)}
-          className="text-black bg-white hover:bg-gray-200 px-6 py-2 rounded-lg transition"
+          className="text-white bg-yellow-500 hover:bg-yellow-600 px-6 py-2 rounded-lg transition"
         >
           View Signature Edition
         </button>

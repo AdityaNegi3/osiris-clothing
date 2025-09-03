@@ -14,7 +14,7 @@ import ThankYou from "./pages/ThankYou";
 
 // ✅ Pages for F1 and Dark editions
 const F1Edition = () => (
-  <div className="p-8 text-center text-xl">Chaos Edition Collection</div>
+  <div className="p-8 text-center text-xl">Chaos E Collection</div>
 );
 
 const DarkEdition = () => (
