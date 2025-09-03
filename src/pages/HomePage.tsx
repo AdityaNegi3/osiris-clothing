@@ -68,16 +68,16 @@ const HomePage: React.FC = () => {
                     className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
-                      {/* Front */}
-                      <img
-                        src={product.frontImage}
-                        alt={product.name}
-                        className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
-                      />
-                      {/* Back */}
+                      {/* Back (Default View) */}
                       <img
                         src={product.backImage}
                         alt={`${product.name} back`}
+                        className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
+                      />
+                      {/* Front (Hover View) */}
+                      <img
+                        src={product.frontImage}
+                        alt={product.name}
                         className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                       />
                     </div>
@@ -147,16 +147,16 @@ const HomePage: React.FC = () => {
                     className="group bg-black rounded-lg overflow-hidden border border-white/10 hover:border-yellow-400/30 transition-all duration-500 md:hover:transform md:hover:scale-105"
                   >
                     <div className="relative overflow-hidden">
-                      {/* Front */}
-                      <img
-                        src={product.frontImage}
-                        alt={product.name}
-                        className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
-                      />
-                      {/* Back */}
+                      {/* Back (Default View) */}
                       <img
                         src={product.backImage}
                         alt={`${product.name} back`}
+                        className="w-full object-contain transition-opacity duration-700 group-hover:opacity-0"
+                      />
+                      {/* Front (Hover View) */}
+                      <img
+                        src={product.frontImage}
+                        alt={product.name}
                         className="w-full object-contain absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                       />
                     </div>

@@ -8,8 +8,8 @@ export const products: Product[] = [
     price: 1599,
      originalPrice: 2999, // ✅ Added for discount display
     category: 'limited',
-    frontImage: '/dragon 1 back.png',
-    backImage: '/dragon 1 front.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
   },
   {
@@ -17,8 +17,8 @@ export const products: Product[] = [
     name: 'THE BEATLES',
     price: 1,
     category: 'limited',
-    frontImage: '/the beatles front.png',
-    backImage: '/the beatles back.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'LIMITED collection featuring elegant gold script typography on premium fabric.'
   },
   {
@@ -26,8 +26,8 @@ export const products: Product[] = [
     name: 'BLACK SABBATH',
     price: 1,
     category: 'limited',
-    frontImage: '/black sabbath front.png',
-    backImage: '/black sabbath back.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Royal edition with sophisticated design elements and luxury finishing.'
   },
   {
@@ -35,8 +35,8 @@ export const products: Product[] = [
     name: 'test sample',
     price: 1,
     category: 'limited',
-    frontImage: '/sample1.png',
-    backImage: '/back.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Heritage collection piece with timeless design and premium craftsmanship.'
   },
   {
@@ -44,8 +44,8 @@ export const products: Product[] = [
     name: 'test',
     price: 1,
     category: 'limited',
-    frontImage: '/tes12.png',
-    backImage: '/test21.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Luxury edition with exclusive design elements and superior material quality.'
   },
   {
@@ -53,8 +53,8 @@ export const products: Product[] = [
     name: 'ALL BANDS',
     price: 1,
     category: 'limited',
-    frontImage: '/osiris front.png',
-    backImage: '/all in one back.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Elite collection featuring sophisticated aesthetics and premium comfort.'
   },
 
@@ -64,8 +64,8 @@ export const products: Product[] = [
     name: 'OSIRIS MENTALITY ',
     price: 1,
     category: 'dark',
-    frontImage: '/osiris middle front.png',
-    backImage: '/osiris mentality front.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Dark edition with shadow aesthetics and mysterious elegance.'
   },
   {
@@ -73,8 +73,8 @@ export const products: Product[] = [
     name: 'FRAGILE',
     price: 999,
     category: 'dark',
-    frontImage: '/fragile front.png',
-    backImage: '/fragile back.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Midnight collection with deep black tones and subtle design details.'
   },
   {
@@ -82,8 +82,8 @@ export const products: Product[] = [
     name: 'EYES',
     price: 999,
     category: 'dark',
-    frontImage: '/eyes front.png',
-    backImage: '/back 12.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Noir edition featuring sophisticated dark aesthetics and premium quality.'
   },
   {
@@ -91,8 +91,8 @@ export const products: Product[] = [
     name: 'Dark Edition Phantom Tee',
     price: 999,
     category: 'dark',
-    frontImage: '/front 12.png',
-    backImage: '/back 12.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Phantom collection with mysterious allure and exceptional craftsmanship.'
   },
   {
@@ -100,8 +100,8 @@ export const products: Product[] = [
     name: 'Dark Edition Eclipse Tee',
     price: 999,
     category: 'dark',
-    frontImage: '/front 12.png',
-    backImage: '/back 12.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Eclipse edition symbolizing the union of light and shadow in perfect harmony.'
   },
   {
@@ -109,8 +109,8 @@ export const products: Product[] = [
     name: 'Dark Edition Storm Tee',
     price: 999,
     category: 'dark',
-    frontImage: '/front 12.png',
-    backImage: '/back 12.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Storm edition with bold aesthetics and fierce energy, crafted for statement wear.'
   },
   {
@@ -118,8 +118,8 @@ export const products: Product[] = [
     name: 'Dark Edition Flame Tee',
     price: 999,
     category: 'dark',
-    frontImage: '/front 12.png',
-    backImage: '/back 12.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Flame edition inspired by passion and intensity, designed with vibrant details.'
   },
   {
@@ -127,8 +127,8 @@ export const products: Product[] = [
     name: 'Dark Edition Mist Tee',
     price: 999,
     category: 'dark',
-    frontImage: '/front 12.png',
-    backImage: '/back 12.png',
+    frontImage: '/adi test front.jpg',
+    backImage: '/adi test back.jpg',
     description: 'Mist edition embodying subtle elegance with soft mysterious tones.'
   }
 ];
