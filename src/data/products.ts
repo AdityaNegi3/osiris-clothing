@@ -23,11 +23,11 @@ export const products: Product[] = [
   },
   {
     id: 'limited-3',
-    name: 'BLACK SABBATH',
-    price: 1,
+    name: 'Blossoms & Fangs',
+    price: 1299,
     category: 'limited',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/blossom front.jpg',
+    backImage: '/blossom back.jpg',
     description: 'Royal edition with sophisticated design elements and luxury finishing.'
   },
   {
