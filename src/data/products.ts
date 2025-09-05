@@ -4,12 +4,12 @@ export const products: Product[] = [
   // LIMITED Edition Collection
   {
     id: 'limited-1',
-    name: 'OSIRIS DRAGON',
+    name: 'Serpent of Shadows',
     price: 1599,
      originalPrice: 2999, // ✅ Added for discount display
     category: 'limited',
-    frontImage: '/dragon 33 back.jpg',
-    backImage: '/dragon 33 front.jpg',
+    frontImage: '/serpant front.jpg',
+    backImage: '/serpant back.jpg',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
   },
   {
