@@ -5,10 +5,29 @@ import { useCart } from '../context/CartContext';
 import CheckoutForm from '../components/CheckoutForm';
 import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 
+type ShippingOption = {
+  id: 'free' | 'fast';
+  label: string;
+  days: number;
+  cost: number;
+};
+
+const SHIPPING_OPTIONS: ShippingOption[] = [
+  { id: 'free', label: 'Free Shipping', days: 6, cost: 0 },
+  { id: 'fast', label: 'Fast Shipping', days: 3, cost: 100 },
+];
+
 const CartPage: React.FC = () => {
   const { cartItems, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
   const [showCheckout, setShowCheckout] = useState(false);
-  const totalPrice = getTotalPrice();
+
+  // selected shipping option id
+  const [selectedShippingId, setSelectedShippingId] = useState<ShippingOption['id']>('free');
+
+  const subtotal = getTotalPrice();
+  const selectedShipping = SHIPPING_OPTIONS.find((s) => s.id === selectedShippingId) ?? SHIPPING_OPTIONS[0];
+  const shippingCost = selectedShipping.cost;
+  const totalWithShipping = subtotal + shippingCost;
 
   if (cartItems.length === 0) {
     return (
@@ -107,16 +126,49 @@ const CartPage: React.FC = () => {
             <div className="space-y-4 mb-6">
               <div className="flex justify-between text-gray-400">
                 <span>Subtotal</span>
-                <span>₹{totalPrice}</span>
+                <span>₹{subtotal}</span>
               </div>
+
+              {/* Shipping selector */}
+              <div className="mt-2 mb-2">
+                <label className="block text-sm text-gray-300 mb-2">Choose shipping</label>
+                <div className="space-y-2">
+                  {SHIPPING_OPTIONS.map((opt) => (
+                    <label
+                      key={opt.id}
+                      className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-colors duration-200 ${
+                        selectedShippingId === opt.id ? 'border-white/30 bg-white/2' : 'border-white/10'
+                      }`}
+                    >
+                      <div className="flex items-start space-x-3">
+                        <input
+                          type="radio"
+                          name="shipping"
+                          value={opt.id}
+                          checked={selectedShippingId === opt.id}
+                          onChange={() => setSelectedShippingId(opt.id)}
+                          className="mt-1 accent-white"
+                        />
+                        <div>
+                          <div className="text-white font-medium">{opt.label}</div>
+                          <div className="text-gray-400 text-sm">Estimated {opt.days} days</div>
+                        </div>
+                      </div>
+                      <div className="text-white font-semibold">₹{opt.cost}</div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
               <div className="flex justify-between text-gray-400">
                 <span>Shipping</span>
-                <span>Free</span>
+                <span>{shippingCost === 0 ? 'Free' : `₹${shippingCost}`}</span>
               </div>
+
               <div className="border-t border-white/10 pt-4">
                 <div className="flex justify-between text-white font-bold text-lg">
                   <span>Total</span>
-                  <span>₹{totalPrice}</span>
+                  <span>₹{totalWithShipping}</span>
                 </div>
               </div>
             </div>
@@ -152,7 +204,16 @@ const CartPage: React.FC = () => {
               </button>
             </div>
 
-            <CheckoutForm onClose={() => setShowCheckout(false)} />
+            {/* Pass shipping info to CheckoutForm so payment/confirmation can use it */}
+            <CheckoutForm
+              onClose={() => setShowCheckout(false)}
+              shippingMethod={{
+                id: selectedShipping.id,
+                label: selectedShipping.label,
+                estimatedDays: selectedShipping.days,
+                cost: selectedShipping.cost,
+              }}
+            />
           </div>
         </div>
       )}

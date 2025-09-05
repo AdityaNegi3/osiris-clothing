@@ -4,12 +4,12 @@ export const products: Product[] = [
   // LIMITED Edition Collection
   {
     id: 'limited-1',
-    name: 'buy buy buy',
+    name: 'OSIRIS DRAGON',
     price: 1599,
      originalPrice: 2999, // ✅ Added for discount display
     category: 'limited',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/dragon 33 back.jpg',
+    backImage: '/dragon 33 front.jpg',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
   },
   {
