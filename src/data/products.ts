@@ -8,8 +8,8 @@ export const products: Product[] = [
     price: 1599,
      originalPrice: 2999, // ✅ Added for discount display
     category: 'limited',
-    frontImage: '/adi 1 front.jpg',
-    backImage: '/adi 1 back.jpg',
+    frontImage: '/shadows front.jpg',
+    backImage: '/shawdows back.jpg',
     description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
   },
   {
@@ -17,8 +17,8 @@ export const products: Product[] = [
     name: 'THE BEATLES',
     price: 1,
     category: 'limited',
-    frontImage: '/adi 2front.jpg',
-    backImage: '/adi 2 back.jpg',
+    frontImage: '/fangs front.jpg',
+    backImage: '/fangs back.jpg',
     description: 'LIMITED collection featuring elegant gold script typography on premium fabric.'
   },
   {
@@ -26,8 +26,8 @@ export const products: Product[] = [
     name: 'Blossoms & Fangs',
     price: 1299,
     category: 'limited',
-    frontImage: '/adi 2 front.jpg',
-    backImage: '/adi 2 back.jpg',
+    frontImage: '/fangs front.jpg',
+    backImage: '/fangs back.jpg',
     description: 'Royal edition with sophisticated design elements and luxury finishing.'
   },
   {
