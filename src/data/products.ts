@@ -41,11 +41,11 @@ export const products: Product[] = [
   },
   {
     id: 'limited-5',
-    name: 'test',
-    price: 1,
+    name: 'The Last Warrior',
+    price: 1299,
     category: 'limited',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/last warriror front.jpg',
+    backImage: '/last warriror back.jpg',
     description: 'Luxury edition with exclusive design elements and superior material quality.'
   },
   {
