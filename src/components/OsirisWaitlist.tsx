@@ -8,7 +8,7 @@ interface OsirisWaitlistProps {
 }
 
 export default function OsirisWaitlist({
-  formEndpointOrId = "https://formspree.io/f/mdklbobw",
+  formEndpointOrId = "https://formspree.io/f/xjkaardz",
   nextUrl = "/thank-you",
   useAjax = true,
 }: OsirisWaitlistProps) {

@@ -5,6 +5,9 @@ import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
+// ✅ import your font (Montserrat example, change if you picked another)
+import "@fontsource/montserrat/800.css";
+
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
@@ -30,13 +33,14 @@ const Header: React.FC<HeaderProps> = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10 transition-all duration-500">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10 transition-all duration-500 font-sans tracking-wide">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Line 1: Logo Centered */}
         <div className="flex justify-center">
           <Link
             to="/"
-            className="text-2xl font-bold text-white hover:text-yellow-400 transition-colors duration-300"
+            className="text-2xl font-bold text-white hover:text-red-500 transition-colors duration-300"
+            style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800 }}
           >
             OSIRIS
           </Link>
@@ -46,10 +50,10 @@ const Header: React.FC<HeaderProps> = () => {
         <div className="hidden md:flex items-center justify-between mt-4 relative">
           {/* LEFT: Cart */}
           <div className="w-1/3 flex items-center">
-            <Link to="/cart" className="relative text-white hover:text-yellow-400">
+            <Link to="/cart" className="relative text-white hover:text-red-500">
               <ShoppingBag className="w-6 h-6" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   {totalItems}
                 </span>
               )}
@@ -58,7 +62,7 @@ const Header: React.FC<HeaderProps> = () => {
 
           {/* CENTER: Navigation */}
           <div className="flex justify-center space-x-8 w-1/3 absolute left-1/2 -translate-x-1/2">
-            <Link to="/" className="text-white hover:text-yellow-400 font-medium">
+            <Link to="/" className="text-white hover:text-red-500 font-medium">
               Home
             </Link>
 
@@ -68,7 +72,7 @@ const Header: React.FC<HeaderProps> = () => {
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className="text-white hover:text-yellow-400 font-medium focus:outline-none focus:ring-2 focus:ring-yellow-400/50 rounded"
+                className="text-white hover:text-red-500 font-medium focus:outline-none focus:ring-2 focus:ring-red-500/50 rounded"
                 aria-haspopup="menu"
                 aria-expanded={dropdownOpen}
               >
@@ -104,7 +108,7 @@ const Header: React.FC<HeaderProps> = () => {
               )}
             </div>
 
-            <Link to="/about" className="text-white hover:text-yellow-400 font-medium">
+            <Link to="/about" className="text-white hover:text-red-500 font-medium">
               About
             </Link>
           </div>
@@ -115,7 +119,7 @@ const Header: React.FC<HeaderProps> = () => {
               <SignInButton mode="modal" asChild afterSignInUrl="/" afterSignUpUrl="/">
                 <button
                   type="button"
-                  className="px-3 py-1 rounded-md border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black transition focus:outline-none focus:ring-2 focus:ring-yellow-400/50"
+                  className="px-3 py-1 rounded-md border border-red-500 text-red-500 hover:bg-red-500 hover:text-black transition focus:outline-none focus:ring-2 focus:ring-red-500/50"
                 >
                   Sign In
                 </button>
@@ -132,17 +136,17 @@ const Header: React.FC<HeaderProps> = () => {
 
         {/* Mobile: Cart (left) + Menu (right) */}
         <div className="md:hidden flex justify-between items-center mt-4">
-          <Link to="/cart" className="relative text-white hover:text-yellow-400">
+          <Link to="/cart" className="relative text-white hover:text-red-500">
             <ShoppingBag className="w-6 h-6" />
             {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+              <span className="absolute -top-2 -right-2 bg-red-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 {totalItems}
               </span>
             )}
           </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 rounded"
+            className="text-white hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/50 rounded"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
@@ -160,21 +164,21 @@ const Header: React.FC<HeaderProps> = () => {
               <Link
                 to="/"
                 onClick={() => setIsMenuOpen(false)}
-                className="block px-3 py-2 text-white hover:text-yellow-400"
+                className="block px-3 py-2 text-white hover:text-red-500"
               >
                 Home
               </Link>
               <a
                 href="/#f1-edition"
                 onClick={() => setIsMenuOpen(false)}
-                className="block px-3 py-2 text-white hover:text-yellow-400"
+                className="block px-3 py-2 text-white hover:text-red-500"
               >
                 Chaos Edition
               </a>
               <a
                 href="/#dark-edition"
                 onClick={() => setIsMenuOpen(false)}
-                className="block px-3 py-2 text-white hover:text-yellow-400"
+                className="block px-3 py-2 text-white hover:text-red-500"
               >
                 Dark Edition
               </a>
@@ -183,14 +187,14 @@ const Header: React.FC<HeaderProps> = () => {
                   setIsMenuOpen(false);
                   handleSignatureClick();
                 }}
-                className="block w-full text-left px-3 py-2 text-white hover:text-yellow-400"
+                className="block w-full text-left px-3 py-2 text-white hover:text-red-500"
               >
                 Signature Edition
               </button>
               <Link
                 to="/about"
                 onClick={() => setIsMenuOpen(false)}
-                className="block px-3 py-2 text-white hover:text-yellow-400"
+                className="block px-3 py-2 text-white hover:text-red-500"
               >
                 About
               </Link>
@@ -198,7 +202,7 @@ const Header: React.FC<HeaderProps> = () => {
               {/* Mobile Auth (Clerk) */}
               <SignedOut>
                 <SignInButton mode="modal" asChild afterSignInUrl="/" afterSignUpUrl="/">
-                  <button className="block w-full text-left px-3 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black rounded-md">
+                  <button className="block w-full text-left px-3 py-2 text-red-500 hover:bg-red-500 hover:text-black rounded-md">
                     Sign In
                   </button>
                 </SignInButton>
@@ -214,7 +218,7 @@ const Header: React.FC<HeaderProps> = () => {
 
         {/* Coming Soon Toast */}
         {showComingSoon && (
-          <div className="fixed bottom-5 right-5 bg-yellow-400 text-black px-4 py-2 rounded shadow-lg z-50">
+          <div className="fixed bottom-5 right-5 bg-red-500 text-black px-4 py-2 rounded shadow-lg z-50">
             Coming Soon!
             <button
               onClick={() => setShowComingSoon(false)}

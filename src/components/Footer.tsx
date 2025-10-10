@@ -1,9 +1,10 @@
-import React from 'react';
-import { Instagram, Mail } from 'lucide-react';
+import React from "react";
+import { Instagram, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black border-t border-white/10 py-12">
+    <footer className="bg-gradient-to-r from-black via-black to-red-900 border-t border-white/10 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
@@ -16,22 +17,39 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-white font-semibold mb-4">Help</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm">
-                  Collections
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm">
+                <Link
+                  to="/about"
+                  className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm"
+                >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/cart" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm">
-                  Cart
-                </a>
+                <Link
+                  to="/terms"
+                  className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/privacy"
+                  className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shipping"
+                  className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm"
+                >
+                  Shipping Policy
+                </Link>
               </li>
             </ul>
           </div>
@@ -50,11 +68,11 @@ const Footer: React.FC = () => {
                 @officialosirisclothing
               </a>
               <a
-                href="mailto:osirisvip.life@gmail.com"
+                href="mailto:team@osirisclothing.site"
                 className="flex items-center text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-sm"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                osirisvip.life@gmail.com
+                team@osirisclothing.site
               </a>
             </div>
           </div>

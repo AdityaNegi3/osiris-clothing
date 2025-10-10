@@ -10,16 +10,16 @@ export const products: Product[] = [
     category: 'limited',
     frontImage: '/shadows front.jpg',
     backImage: '/shawdows back.jpg',
-    description: 'Exclusive LIMITED edition signature tee with premium cotton blend and gold foil detailing.'
+    description: 'Wear the serpent. Command the streets.'
   },
   {
     id: 'limited-2',
-    name: 'THE BEATLES',
-    price: 1,
+    name: "CRIMSON'S WRATH",
+    price: 1299,
     category: 'limited',
-    frontImage: '/fangs front.jpg',
-    backImage: '/fangs back.jpg',
-    description: 'LIMITED collection featuring elegant gold script typography on premium fabric.'
+    frontImage: "/crimson front.jpg",
+    backImage: "/crimson back.jpg",
+    description: 'Unleash the wrath. Wear the crimson.'
   },
   {
     id: 'limited-3',
@@ -28,16 +28,17 @@ export const products: Product[] = [
     category: 'limited',
     frontImage: '/fangs front.jpg',
     backImage: '/fangs back.jpg',
-    description: 'Royal edition with sophisticated design elements and luxury finishing.'
+    description: 'A bold essential crafted for those who demand both style and edge.'
   },
   {
-    id: 'limited-4',
-    name: 'test sample',
-    price: 1,
-    category: 'limited',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
-    description: 'Heritage collection piece with timeless design and premium craftsmanship.'
+  id: "limited-4",
+  name: "Mythic Rage",
+  price: 1099,
+  originalPrice: 1999,
+  category: "limited",
+  frontImage: '/Mythic Rage front.jpg',
+  backImage: "/Mythic Rage.jpg",
+  description: "An exclusive heritage drop, bringing timeless myth and modern edge together."
   },
   {
     id: 'limited-5',
@@ -50,22 +51,22 @@ export const products: Product[] = [
   },
   {
     id: 'limited-6',
-    name: 'ALL BANDS',
+    name: 'Eternal Balance',
     price: 1,
     category: 'limited',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/uhoh front.jpg',
+    backImage: '/Eternal Balance back.jpg',
     description: 'Elite collection featuring sophisticated aesthetics and premium comfort.'
   },
 
   // Dark Edition Collection
   {
     id: 'dark-1',
-    name: 'OSIRIS MENTALITY ',
+    name: 'Pierce of Serenity',
     price: 1,
     category: 'dark',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/flowers front.jpg',
+    backImage: "/flowers back.jpg",
     description: 'Dark edition with shadow aesthetics and mysterious elegance.'
   },
   {
@@ -74,7 +75,7 @@ export const products: Product[] = [
     price: 999,
     category: 'dark',
     frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    backImage: '/fangs back.jpg',
     description: 'Midnight collection with deep black tones and subtle design details.'
   },
   {
@@ -82,8 +83,8 @@ export const products: Product[] = [
     name: 'EYES',
     price: 999,
     category: 'dark',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/snakeflower front.jpg',
+    backImage: '/snakeflower back.jpg',
     description: 'Noir edition featuring sophisticated dark aesthetics and premium quality.'
   },
   {
@@ -91,8 +92,8 @@ export const products: Product[] = [
     name: 'Dark Edition Phantom Tee',
     price: 999,
     category: 'dark',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/fangs back.jpg',
+    backImage: '/fangs back.jpg',
     description: 'Phantom collection with mysterious allure and exceptional craftsmanship.'
   },
   {
@@ -100,8 +101,8 @@ export const products: Product[] = [
     name: 'Dark Edition Eclipse Tee',
     price: 999,
     category: 'dark',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    frontImage: '/fangs back.jpg',
+    backImage: '/fangs back.jpg',
     description: 'Eclipse edition symbolizing the union of light and shadow in perfect harmony.'
   },
   {
@@ -110,25 +111,25 @@ export const products: Product[] = [
     price: 999,
     category: 'dark',
     frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
+    backImage: '/fangs back.jpg',
     description: 'Storm edition with bold aesthetics and fierce energy, crafted for statement wear.'
   },
-  {
-    id: 'dark-7',
-    name: 'Dark Edition Flame Tee',
-    price: 999,
-    category: 'dark',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
-    description: 'Flame edition inspired by passion and intensity, designed with vibrant details.'
-  },
-  {
-    id: 'dark-8',
-    name: 'Dark Edition Mist Tee',
-    price: 999,
-    category: 'dark',
-    frontImage: '/adi test front.jpg',
-    backImage: '/adi test back.jpg',
-    description: 'Mist edition embodying subtle elegance with soft mysterious tones.'
-  }
+  // {
+  //   id: 'dark-7',
+  //   name: 'Dark Edition Flame Tee',
+  //   price: 999,
+  //   category: 'dark',
+  //   frontImage: '/adi test front.jpg',
+  //   backImage: '/fangs back.jpg',
+  //   description: 'Flame edition inspired by passion and intensity, designed with vibrant details.'
+  // },
+  // {
+  //   id: 'dark-8',
+  //   name: 'Dark Edition Mist Tee',
+  //   price: 999,
+  //   category: 'dark',
+  //   frontImage: '/adi test front.jpg',
+  //   backImage: '/fangs back.jpg',
+  //   description: 'Mist edition embodying subtle elegance with soft mysterious tones.'
+  // }
 ];
